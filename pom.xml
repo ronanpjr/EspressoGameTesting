@@ -63,12 +63,12 @@
         <configuration>
           <url>http://localhost:8080/manager/text</url>
           <server>Tomcat11</server>
-          <path>/Livraria</path>
+          <path>/Espresso</path>
         </configuration>
       </plugin>
 
     </plugins>
-    <finalName>Livraria</finalName>
+    <finalName>EspressoTesting</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
