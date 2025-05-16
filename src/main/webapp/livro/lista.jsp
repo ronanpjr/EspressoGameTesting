@@ -12,6 +12,8 @@
 <html>
 <head>
     <title>Livraria Virtual</title>
+    <link href="${pageContext.request.contextPath}/lista_layout.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <div align="center">

@@ -10,6 +10,9 @@
     <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<h1>Espresso Game Testing</h1>
+<h2>Your tests cafeteria</h2>
+
 <h1>Autenticação de Usuário</h1>
 <c:if test="${mensagens.existeErros}">
     <div id="erro">

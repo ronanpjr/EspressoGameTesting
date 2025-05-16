@@ -5,6 +5,9 @@
   Time: 19:48
   To change this template use File | Settings | File Templates.
 --%>
+<head>
+    <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
+</head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
