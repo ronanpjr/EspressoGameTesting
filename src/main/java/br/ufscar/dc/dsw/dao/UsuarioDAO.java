@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.UsuarioDAO;
+package br.ufscar.dc.dsw.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufscar.dc.dsw.dao.GenericDAO;
 import br.ufscar.dc.dsw.domain.Usuario;
 
 public class UsuarioDAO extends GenericDAO {
@@ -39,7 +38,7 @@ public class UsuarioDAO extends GenericDAO {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                long id = resultSet.getLong("id");
+                long id = resultSet.getLong("id_usuario");
                 String nome = resultSet.getString("nome");
                 String login = resultSet.getString("login");
                 String senha = resultSet.getString("senha");
@@ -57,7 +56,7 @@ public class UsuarioDAO extends GenericDAO {
     }
 
     public void delete(Usuario usuario) {
-        String sql = "DELETE FROM Usuario where id = ?";
+        String sql = "DELETE FROM Usuario where id_usuario = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -70,7 +69,7 @@ public class UsuarioDAO extends GenericDAO {
     }
 
     public void update(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nome = ?, login = ?, senha = ?, papel = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET nome = ?, login = ?, senha = ?, papel = ? WHERE id_usuario = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -79,6 +78,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(2, usuario.getLogin());
             statement.setString(3, usuario.getSenha());
             statement.setString(4, usuario.getPapel());
+            statement.setLong(5, usuario.getId());
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -89,7 +89,7 @@ public class UsuarioDAO extends GenericDAO {
 
     public Usuario getbyID(Long id) {
         Usuario usuario = null;
-        String sql = "SELECT * from Usuario WHERE id = ?";
+        String sql = "SELECT * from Usuario WHERE id_usuario = ?";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -120,7 +120,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Long id = resultSet.getLong("id");
+                Long id = resultSet.getLong("id_usuario");
                 String nome = resultSet.getString("nome");
                 String senha = resultSet.getString("senha");
                 String papel = resultSet.getString("papel");

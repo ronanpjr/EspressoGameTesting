@@ -7,9 +7,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Autenticação de Usuário</title>
-    <link href="${pageContext.request.contextPath}/WEB-INF/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<h1>Espresso Game Testing</h1>
+<h2>Your tests cafeteria</h2>
+
 <h1>Autenticação de Usuário</h1>
 <c:if test="${mensagens.existeErros}">
     <div id="erro">
@@ -20,7 +23,7 @@
         </ul>
     </div>
 </c:if>
-<form method="post" action="/login">
+<form method="post" action="index.jsp">
     <table>
         <tr>
             <th>Login: </th>
