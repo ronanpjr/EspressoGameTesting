@@ -61,16 +61,40 @@ public class UsuarioController extends HttpServlet {
                     apresentaFormCadastro(request, response);
                     break;
                 case "/insercao":
-                    insere(request, response);
+                    if ((usuarioLogado.getPapel().equals("admin")))
+                        insere(request, response);
+                    else {
+                        erros.add("Apenas Papel [tester] ou [admin] tem acesso a essa página");
+                        request.setAttribute("mensagens", erros);
+                        return;
+                    }
                     break;
                 case "/remocao":
-                    remove(request, response);
+                    if ((usuarioLogado.getPapel().equals("admin")))
+                        remove(request, response);
+                    else {
+                        erros.add("Apenas Papel [tester] ou [admin] tem acesso a essa página");
+                        request.setAttribute("mensagens", erros);
+                        return;
+                    }
                     break;
                 case "/edicao":
-                    apresentaFormEdicao(request, response);
+                    if ((usuarioLogado.getPapel().equals("admin")))
+                        apresentaFormEdicao(request, response);
+                    else {
+                        erros.add("Apenas Papel [tester] ou [admin] tem acesso a essa página");
+                        request.setAttribute("mensagens", erros);
+                        return;
+                    }
                     break;
                 case "/atualizacao":
-                    atualize(request, response);
+                    if ((usuarioLogado.getPapel().equals("admin")))
+                        atualize(request, response);
+                    else {
+                        erros.add("Apenas Papel [tester] ou [admin] tem acesso a essa página");
+                        request.setAttribute("mensagens", erros);
+                        return;
+                    }
                     break;
                 default:
                     lista(request, response);
