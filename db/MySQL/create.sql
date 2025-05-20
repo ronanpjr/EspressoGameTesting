@@ -2,25 +2,84 @@ create database Livraria;
 
 use Livraria;
 
-create table Editora(id bigint not null auto_increment, cnpj varchar(18) not null, nome varchar(256) not null, primary key (id));
-
-create table Livro(id bigint not null auto_increment, titulo varchar(256) not null, autor varchar(256) not null, ano integer not null, preco float not null, editora_id bigint not null, primary key (id), foreign key (editora_id) references Editora(id));
-
-insert into Editora(cnpj, nome) values  ('55.789.390/0008-99', 'Companhia das Letras');
-
-insert into Editora(cnpj, nome) values ('71.150.470/0001-40', 'Record');
-
-insert into Editora(cnpj, nome) values ('32.106.536/0001-82', 'Objetiva');
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Ensaio sobre a Cegueira', 'José Saramago', 1995, 54.9, 1);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values  ('Cem anos de Solidão', 'Gabriel Garcia Márquez', 1977, 59.9, 2);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Diálogos Impossíveis', 'Luis Fernando Verissimo', 2012, 22.9, 3);
+-- USUÁRIOS
+CREATE TABLE Usuario (
+                         id_usuario     bigint AUTO_INCREMENT PRIMARY KEY,
+                         nome           VARCHAR(256) NOT NULL,
+                         login          VARCHAR(255) NOT NULL UNIQUE,
+                         senha          VARCHAR(255) NOT NULL,
+                         papel          ENUM('admin','tester') NOT NULL
+) ENGINE=InnoDB;
 
 
-create table Usuario(id bigint not null auto_increment, nome varchar(256) not null, login varchar(20) not null unique, senha varchar(64) not null, papel varchar(10), primary key (id));
+-- create table Usuario(id bigint not null auto_increment, nome varchar(256) not null, login varchar(20) not null unique, senha varchar(64) not null, papel varchar(10), primary key (id));
 
-insert into Usuario(nome, login, senha, papel) values ('Administrador', 'admin', 'admin', 'ADMIN');
+insert into Usuario(nome, login, senha, papel) values ('Administrador', 'admin', 'admin', 'admin');
 
-insert into Usuario(nome, login, senha, papel) values ('Usuario', 'user', 'user', 'USER');
+insert into Usuario(nome, login, senha, papel) values ( 'Usuario', 'user', 'user', 'tester');
+
+
+
+-- PROJETOS
+CREATE TABLE projetos (
+                          id_projeto     INT AUTO_INCREMENT PRIMARY KEY,
+                          nome           VARCHAR(255) NOT NULL UNIQUE,
+                          descricao      TEXT,
+                          data_criacao   DATE        NOT NULL
+) ENGINE=InnoDB;
+
+-- MEMBROS DE PROJETO (N:N entre projetos e usuários)
+CREATE TABLE membros_projeto (
+                                 id_membro       INT AUTO_INCREMENT PRIMARY KEY,
+                                 id_projeto      INT NOT NULL,
+                                 id_usuario      INT NOT NULL,
+                                 FOREIGN KEY (id_projeto) REFERENCES projetos(id_projeto) ON DELETE CASCADE,
+                                 FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ESTRATÉGIAS
+CREATE TABLE estrategias (
+                             id_estrategia  INT AUTO_INCREMENT PRIMARY KEY,
+                             nome           VARCHAR(255) NOT NULL UNIQUE,
+                             descricao      TEXT
+) ENGINE=InnoDB;
+
+-- EXEMPLOS (1:N de estratégia → exemplo)
+CREATE TABLE exemplos (
+                          id_exemplo      INT AUTO_INCREMENT PRIMARY KEY,
+                          id_estrategia   INT         NOT NULL,
+                          texto           TEXT        NOT NULL,
+                          atributo1       INT,
+                          FOREIGN KEY (id_estrategia) REFERENCES estrategias(id_estrategia) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- DICAS DE ESTRATÉGIA (1:N de estratégia → dica)
+CREATE TABLE dicas_estrategia (
+                                  id_dica         INT AUTO_INCREMENT PRIMARY KEY,
+                                  id_estrategia   INT         NOT NULL,
+                                  dica            TEXT        NOT NULL,
+                                  FOREIGN KEY (id_estrategia) REFERENCES estrategias(id_estrategia) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- SESSÕES
+CREATE TABLE sessoes (
+                         id_sessao       INT AUTO_INCREMENT PRIMARY KEY,
+                         id_projeto      INT     NOT NULL,
+                         id_tester       INT     NOT NULL,
+                         id_estrategia   INT     NOT NULL,
+                         duracao         TIME,
+                         descricao       TEXT,
+                         status          ENUM('created','in_execution','finalized')
+                                                 NOT NULL DEFAULT 'created',
+                         FOREIGN KEY (id_projeto)    REFERENCES projetos(id_projeto)    ON DELETE CASCADE,
+                         FOREIGN KEY (id_tester)     REFERENCES Usuario(id_usuario),
+                         FOREIGN KEY (id_estrategia) REFERENCES estrategias(id_estrategia)
+) ENGINE=InnoDB;
+
+-- HISTÓRICO DE MUDANÇA DE STATUS
+CREATE TABLE historico_status_sessao (
+                                         id_historico    INT AUTO_INCREMENT PRIMARY KEY,
+                                         id_sessao       INT     NOT NULL,
+                                         data_hora       DATETIME NOT NULL,
+                                         FOREIGN KEY (id_sessao) REFERENCES sessoes(id_sessao) ON DELETE CASCADE
+) ENGINE=InnoDB;

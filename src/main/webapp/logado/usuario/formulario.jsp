@@ -12,20 +12,20 @@
 <html>
 <head>
     <title>Livraria Virtual</title>
-    <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/lista_layout.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
 <body>
 <div align="center">
-    <h1>Gerenciamento de Livros</h1>
+    <h1>Gerenciamento de Usuários</h1>
     <h2>
-        <a href="lista">Lista de Livros</a>
+        <a href="lista">Lista de Usuários</a>
     </h2>
 </div>
 <div align="center">
     <c:choose>
-        <c:when test="${livro != null}">
+        <c:when test="${usuario != null}">
             <form action="atualizacao" method="post">
                 <%@include file="campos.jsp"%>
             </form>

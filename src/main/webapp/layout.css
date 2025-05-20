@@ -1,6 +1,119 @@
+@font-face {
+    font-family: 'Maple Mono';
+    src: url('maple-mono_5.2.5/webfonts/maple-mono-latin-800-normal.woff') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f3e5ab, #d7ccc8);
+    font-family: 'Maple Mono', monospace;
+    color: #4e342e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-top: 40px;
+    color: #3e2723;
+    text-shadow: 1px 1px 2px #795548;
+    animation: fadeInDown 1s ease-out;
+}
+
+h2 {
+    font-size: 1.2em;
+    color: #6d4c41;
+    margin-bottom: 30px;
+    animation: fadeInDown 1.5s ease-out;
+}
+
 #erro {
-    width: 80%;
-    margin: 0 auto;
-    border: 1px solid red;
-    background-color: beige;
+    background-color: #ef9a9a;
+    border: 1px solid #d32f2f;
+    color: #b71c1c;
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    margin-bottom: 20px;
+    animation: shake 0.5s;
+}
+
+form {
+    background-color: #fff3e0;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    animation: fadeInUp 1s ease-out;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px 5px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bcaaa4;
+    border-radius: 5px;
+    background-color: #fff8e1;
+    color: #4e342e;
+}
+
+input[type="submit"] {
+    background-color: #6d4c41;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #8d6e63;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
