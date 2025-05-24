@@ -8,12 +8,12 @@ public class Usuario {
     private String senha;
     private String papel;
 
+    public Usuario() {}
+
     public Usuario(Long id) {
         this.id = id;
     }
-
     public Usuario(String nome, String login, String senha, String papel) {
-        super();
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -64,3 +64,5 @@ public class Usuario {
         this.papel = papel;
     }
 }
+
+
