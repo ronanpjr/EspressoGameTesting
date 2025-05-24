@@ -26,9 +26,11 @@ public class IndexController extends HttpServlet {
 
         String lang = request.getParameter("lang");
         if (lang != null && !lang.isEmpty()) {
+            System.out.println(">>>>>>>>> Trocando idioma para: " + lang);
             request.getSession().setAttribute("lang", lang);
             String queryString = request.getQueryString();
-            queryString = queryString != null ? queryString.replaceAll("[&?]lang=[^&]*", "") : "";
+            queryString = queryString.replaceAll("^lang=[^&]*&?", "");
+            queryString = queryString.replaceAll("&lang=[^&]*", "");
             String redirectUrl = request.getRequestURI() + (queryString.isEmpty() ? "" : "?" + queryString);
             response.sendRedirect(redirectUrl.isEmpty() ? request.getContextPath() + "/" : redirectUrl);
             return;

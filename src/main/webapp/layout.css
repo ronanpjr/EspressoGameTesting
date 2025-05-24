@@ -5,8 +5,6 @@
     font-style: normal;
 }
 
-
-
 body {
     margin: 0;
     padding: 0;
@@ -116,4 +114,30 @@ input[type="submit"]:hover {
     50% { transform: translateX(5px); }
     75% { transform: translateX(-5px); }
     100% { transform: translateX(0); }
+}
+
+/* === ADICIONADO: Estilos para os botões/links de idioma === */
+.lang-switcher {
+    text-align: right;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.lang-switcher a, .lang-switcher span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: 1px solid #6d4c41;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #6d4c41;
+    background-color: #fff8e1;
+    font-size: 0.9em;
+}
+.lang-switcher a:hover {
+    background-color: #d7ccc8;
+}
+.lang-switcher span {
+    background-color: #6d4c41;
+    color: white;
+    font-weight: bold;
 }
