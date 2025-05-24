@@ -1,20 +1,33 @@
-connect 'jdbc:derby:Livraria;create=true;user=root;password=root';
+connect 'jdbc:derby:EspressoGameTesting;create=true;user=root;password=root';
 
-create table Editora(id bigint not null generated always as identity, cnpj varchar(18) not null, nome varchar(256) not null, constraint Editora_PK primary key (id));
+create table Usuario(id bigint not null generated always as identity, nome varchar(256) not null, login varchar(20) not null unique, senha varchar(64) not null, papel varchar(10), CONSTRAINT Usuario_PK PRIMARY KEY (id));
 
-create table Livro(id bigint not null generated always as identity, titulo varchar(256) not null, autor varchar(256) not null, ano integer not null, preco float not null, editora_id bigint not null, constraint Livro_PK primary key (id), constraint Editora_FK foreign key (editora_id) references Editora(id));
+create table Projeto(
+    id bigint not null generated always as identity,
+    nome varchar(256) not null,
+    descricao varchar(1000),
+    data_criacao date,
+    membros varchar(256),
+    constraint Projeto_PK primary key (id)
+);
 
-insert into Editora(cnpj, nome) values  ('55.789.390/0008-99', 'Companhia das Letras');
+insert into Usuario(nome, login, senha, papel) values ('Administrador', 'admin', 'admin', 'ADMIN');
 
-insert into Editora(cnpj, nome) values ('71.150.470/0001-40', 'Record');
+insert into Usuario(nome, login, senha, papel) values ('Usuario', 'user', 'user', 'USER');
 
-insert into Editora(cnpj, nome) values ('32.106.536/0001-82', 'Objetiva');
+insert into Projeto(nome, descricao, data_criacao, membros) values (
+    'Teste de Interface Espresso',
+    'Projeto para testar interfaces Android com Espresso.',
+    current_date,
+    '1,2'
+);
 
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Ensaio sobre a Cegueira', 'José Saramago', 1995, 54.9, 1);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values  ('Cem anos de Solidão', 'Gabriel Garcia Márquez', 1977, 59.9, 2);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Diálogos Impossíveis', 'Luis Fernando Verissimo', 2012, 22.9, 3);
+insert into Projeto(nome, descricao, data_criacao, membros) values (
+    'Automação com Espresso',
+    'Automação de testes em apps Android usando Espresso e JUnit.',
+    current_date,
+    '2,3'
+);
 
 disconnect;
 

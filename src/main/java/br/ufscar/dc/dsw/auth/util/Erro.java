@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.util;
+package br.ufscar.dc.dsw.auth.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import br.ufscar.dc.dsw.domain.Usuario;
-import br.ufscar.dc.dsw.util.Erro;
+import br.ufscar.dc.dsw.auth.util.Erro;
 
 @WebServlet(urlPatterns = "/admin/*")
 public class AdminController extends HttpServlet {

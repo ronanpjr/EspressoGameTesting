@@ -1,26 +1,45 @@
-create database Livraria;
+CREATE DATABASE EspressoGameTesting;
 
-use Livraria;
+USE EspressoGameTesting;
 
-create table Editora(id bigint not null auto_increment, cnpj varchar(18) not null, nome varchar(256) not null, primary key (id));
+-- Tabela de usuários (membros dos projetos)
+CREATE TABLE Usuario (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(256) NOT NULL,
+    login VARCHAR(20) NOT NULL UNIQUE,
+    senha VARCHAR(64) NOT NULL,
+    papel VARCHAR(10),
+    PRIMARY KEY (id)
+);
 
-create table Livro(id bigint not null auto_increment, titulo varchar(256) not null, autor varchar(256) not null, ano integer not null, preco float not null, editora_id bigint not null, primary key (id), foreign key (editora_id) references Editora(id));
+-- Tabela de projetos
+CREATE TABLE Projeto (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(256) NOT NULL,
+    descricao TEXT,
+    data_criacao DATE,
+    membros TEXT,
+    PRIMARY KEY (id)
+);
 
-insert into Editora(cnpj, nome) values  ('55.789.390/0008-99', 'Companhia das Letras');
+-- Dados de exemplo para usuários
+INSERT INTO Usuario(nome, login, senha, papel) VALUES ('Alice Testadora', 'alice', 'alice123', 'USER');
+INSERT INTO Usuario(nome, login, senha, papel) VALUES ('Bob Dev', 'bob', 'bob123', 'USER');
+INSERT INTO Usuario(nome, login, senha, papel) VALUES ('Carol Admin', 'carol', 'carol123', 'ADMIN');
 
-insert into Editora(cnpj, nome) values ('71.150.470/0001-40', 'Record');
+-- Dados de exemplo para projetos
+INSERT INTO Projeto(nome, descricao, data_criacao, membros)
+VALUES (
+    'Teste de Interface Espresso',
+    'Projeto para testar interfaces Android com Espresso.',
+    '2025-05-24',
+    '1,2'
+);
 
-insert into Editora(cnpj, nome) values ('32.106.536/0001-82', 'Objetiva');
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Ensaio sobre a Cegueira', 'José Saramago', 1995, 54.9, 1);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values  ('Cem anos de Solidão', 'Gabriel Garcia Márquez', 1977, 59.9, 2);
-
-insert into Livro(titulo, autor, ano, preco, editora_id) values ('Diálogos Impossíveis', 'Luis Fernando Verissimo', 2012, 22.9, 3);
-
-
-create table Usuario(id bigint not null auto_increment, nome varchar(256) not null, login varchar(20) not null unique, senha varchar(64) not null, papel varchar(10), primary key (id));
-
-insert into Usuario(nome, login, senha, papel) values ('Administrador', 'admin', 'admin', 'ADMIN');
-
-insert into Usuario(nome, login, senha, papel) values ('Usuario', 'user', 'user', 'USER');
+INSERT INTO Projeto(nome, descricao, data_criacao, membros)
+VALUES (
+    'Automação com Espresso',
+    'Automação de testes em apps Android usando Espresso e JUnit.',
+    '2025-05-15',
+    '2,3'
+);

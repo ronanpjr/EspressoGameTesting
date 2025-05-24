@@ -13,19 +13,21 @@ public class AcessaBD {
 
             /* Setup para uso do banco de dados MySQL */
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/Livraria";
-            Connection con = (Connection) DriverManager.getConnection(url,
+            /*
+             * Class.forName("com.mysql.cj.jdbc.Driver");
+             * String url = "jdbc:mysql://localhost:3306/EspressoGameTesting";
+             * Connection con = (Connection) DriverManager.getConnection(url,
                     "root", "root");
+             */
 
             /* Setup para uso do banco de dados Apache Derby */
 
-            /*
-             * Class.forName("org.apache.derby.jdbc.ClientDriver");
-             * String url = "jdbc:derby://localhost:1527/Livraria";p
-             * Connection con = (Connection) DriverManager.getConnection(url,
-             *         "root", "root");
-             */
+
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            String url = "jdbc:derby://localhost:1527/EspressoGameTesting";
+            Connection con = (Connection) DriverManager.getConnection(url,
+                     "root", "root");
+
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select * from Livro ");

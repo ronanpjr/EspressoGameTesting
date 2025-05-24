@@ -9,10 +9,10 @@ abstract public class GenericDAO {
     public GenericDAO() {
         try {
             /* Setup Banco de dados Derby */
-            // Class.forName("org.apache.derby.jdbc.ClientDriver");
+             Class.forName("org.apache.derby.jdbc.ClientDriver");
 
             /* Setup Banco de dados MySQL */
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -22,13 +22,13 @@ abstract public class GenericDAO {
 
         /* Conexão banco de dados Derby */
 
-        /*
-         * String url = "jdbc:derby://localhost:1527/Livraria";
-         */
+
+        String url = "jdbc:derby://localhost:1527/EspressoGameTesting";
+
 
         /* Conexão banco de dados MySQL */
 
-        String url = "jdbc:mysql://localhost:3306/Livraria";
+        //String url = "jdbc:mysql://localhost:3306/EspressoGameTesting";
 
         return DriverManager.getConnection(url, "root", "root");
     }

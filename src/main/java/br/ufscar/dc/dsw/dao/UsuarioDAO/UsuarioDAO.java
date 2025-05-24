@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.UsuarioDAO;
+package br.ufscar.dc.dsw.dao.UsuarioDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

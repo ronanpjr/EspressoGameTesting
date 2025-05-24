@@ -11,6 +11,9 @@
 <p>Olá ${sessionScope.usuarioLogado.nome}</p>
 <ul>
     <li>
+        <a href="${pageContext.request.contextPath}/admin/projetos">CRUD Projetos</a>
+    </li>
+    <li>
         <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
     </li>
 </ul>
