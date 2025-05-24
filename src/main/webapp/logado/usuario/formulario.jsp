@@ -9,6 +9,7 @@
          pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<fmt:setBundle basename="i18n.messages" />
 <html>
 <head>
     <title>Livraria Virtual</title>
