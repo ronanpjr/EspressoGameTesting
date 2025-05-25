@@ -1,0 +1,326 @@
+/* === Fonte === */
+@font-face {
+    font-family: 'Maple Mono';
+    src: url('maple-mono_5.2.5/webfonts/maple-mono-latin-800-normal.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* === Reset e Base === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Maple Mono', monospace;
+    background: linear-gradient(to bottom, #f3e5ab, #d7ccc8);
+    color: #4e342e; /* Tom de café escuro */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.7;
+    padding: 20px;
+}
+
+/* === Container Geral (O "Cardápio") === */
+.wrapper {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: rgba(255, 250, 235, 0.95); /* Creme */
+    border-radius: 12px;
+    border: 1px solid rgba(141, 110, 99, 0.3); /* Borda sutil */
+    box-shadow: 0 8px 25px rgba(62, 39, 35, 0.15);
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* === Cabeçalhos (Títulos do Menu) === */
+h1 {
+    font-family: 'Maple Mono', monospace;
+
+    font-size: 2.8em;
+    color: #3e2723;
+    text-shadow: 1px 1px 3px rgba(141, 110, 99, 0.5);
+    margin-bottom: 25px;
+    text-align: center;
+    animation: fadeInDown 0.8s ease-out;
+    position: relative;
+    padding-bottom: 10px;
+}
+/* Linha decorativa para H1 */
+h1::after {
+    font-family: 'Maple Mono', monospace;
+
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #6d4c41; /* Tom de grão de café */
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+h2 {
+    font-family: 'Maple Mono', monospace;
+    font-size: 1.6em;
+    color: #5d4037;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #bcaaa4;
+    padding-bottom: 8px;
+    animation: fadeInDown 1s ease-out;
+}
+
+/* === Navegação (Opções do Balcão) === */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    padding: 10px;
+    border-bottom: 1px solid #d7ccc8;
+}
+nav a {
+    color: #6d4c41;
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid #8d6e63;
+    border-radius: 6px;
+    background: #fff8e1;
+    transition: all 0.3s ease-in-out;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+nav a:hover, nav a.active {
+    background: #6d4c41;
+    color: #fff8e1;
+    text-decoration: none;
+    transform: translateY(-2px); /* Efeito de elevação */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* === Links Gerais === */
+a {
+    color: #5d4037;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+a:hover {
+    text-decoration: underline;
+    color: #3e2723;
+}
+
+/* === Tabelas (Lista de Pedidos/Produtos) === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    background: #fffdf9;
+    border: 1px solid #d7ccc8;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que o radius funcione */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    animation: fadeInUp 0.8s ease-out;
+}
+table caption {
+    caption-side: top;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    padding: 15px 20px;
+    background: #d7ccc8;
+    color: #4e342e;
+    border-bottom: 3px solid #6d4c41;
+}
+th {
+    background: #efebe9;
+    color: #3e2723;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+th, td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #d7ccc8;
+    font-size: 1em;
+    text-align: left;
+}
+tr:nth-child(even) {
+    background: #f5f0e1;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+tr:hover {
+    background: #fff8e1;
+    cursor: pointer;
+}
+td a {
+    color: #6d4c41;
+    font-weight: bold;
+}
+td a:hover {
+    color: #3e2723;
+}
+
+/* === Formulários (Fazer o Pedido) === */
+label {
+    display: block;
+    font-weight: 600;
+    margin-top: 15px;
+    color: #4e342e;
+    margin-bottom: 5px;
+}
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 6px;
+    margin-bottom: 18px;
+    border: 1px solid #bcaaa4;
+    border-radius: 6px;
+    background: #fffdf9;
+    font-family: inherit;
+    font-size: 1em;
+    color: #4e342e;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: #6d4c41;
+    box-shadow: 0 0 0 3px rgba(109, 76, 65, 0.2); /* Sombra de foco */
+}
+
+/* === Botões (Confirmar/Cancelar Pedido) === */
+button,
+input[type="submit"],
+input[type="button"],
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 1em;
+    font-weight: 800;
+    color: #fff;
+    background-color: #6d4c41;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.button:hover {
+    background-color: #5d4037;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    color: #fff;
+    text-decoration: none;
+}
+button:active,
+input[type="submit"]:active,
+input[type="button"]:active,
+.button:active {
+    transform: translateY(0); /* Efeito de clique */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.button-secondary {
+    background-color: #bcaaa4;
+    color: #4e342e;
+}
+.button-secondary:hover {
+    background-color: #a1887f;
+    color: #fff;
+}
+
+/* === Mensagens de Erro e Alerta (Avisos da Cozinha) === */
+.message-box {
+    list-style: none;
+    padding: 15px 20px 15px 50px; /* Espaço para "ícone" */
+    border-radius: 6px;
+    margin: 20px 0;
+    animation: fadeIn 0.6s ease-out;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    font-weight: 600;
+}
+/* Simulação de ícone com ::before. Ideal: FontAwesome/SVG */
+.message-box::before {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5em;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+ul.erro, .message-box.error {
+    background: #ffebee;
+    border-color: #e57373;
+    color: #c62828;
+}
+ul.erro::before, .message-box.error::before {
+    content: '!';
+    color: #c62828;
+}
+.alerta, .message-box.alert {
+    background: #fff3e0;
+    border-color: #ffb74d;
+    color: #e65100;
+}
+.alerta::before, .message-box.alert::before {
+    content: '?';
+    color: #e65100;
+}
+.success, .message-box.success {
+    background: #e8f5e9;
+    border-color: #81c784;
+    color: #2e7d32;
+}
+.success::before, .message-box.success::before {
+    content: '✓';
+    color: #2e7d32;
+}
+
+/* === Animações === */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* === Rodapé === */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #5d4037;
+    font-size: 0.9em;
+    width: 100%;
+}
