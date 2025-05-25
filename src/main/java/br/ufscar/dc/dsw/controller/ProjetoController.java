@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +26,6 @@ public class ProjetoController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProjetoDAO projetoDAO;
     private UsuarioDAO usuarioDAO;
-
-
 
     @Override
     public void init() {
@@ -59,8 +58,9 @@ public class ProjetoController extends HttpServlet {
         }
 
         String action = request.getPathInfo();
-        if (action == null) {
-            action = "";
+        if (action == null || action.equals("/") || action.equals("/lista")) {
+            lista(request, response);
+            return;
         }
 
         try {
@@ -68,19 +68,19 @@ public class ProjetoController extends HttpServlet {
                 case "/cadastro":
                     if(!ehAdmin(usuario)) break;
                     apresentaFormCadastro(request, response);
-                    break;
+                    return;
                 case "/insercao":
                     if(!ehAdmin(usuario)) break;
                     insere(request, response);
-                    break;
+                    return;
                 case "/remocao":
                     if(!ehAdmin(usuario)) break;
                     remove(request, response);
-                    break;
+                    return;
                 case "/edicao":
                     if(!ehAdmin(usuario)) break;
                     apresentaFormEdicao(request, response);
-                    break;
+                    return;
                 case "/atualizacao":
                     if(!ehAdmin(usuario)) break;
                     atualize(request, response);
@@ -89,25 +89,11 @@ public class ProjetoController extends HttpServlet {
                     detalhes(request, response);
                     break;
                 default:
-                    lista(request, response);
-                    break;
+                    response.sendRedirect(request.getContextPath() + "/admin/projetos");
             }
         } catch (RuntimeException | IOException | ServletException e) {
             throw new ServletException(e);
         }
-    }
-    private String montaStringLogins(List<Usuario> membros) {
-        if (membros == null || membros.isEmpty()) {
-            return "vazio";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Usuario u : membros) {
-            if (sb.length() > 0) {
-                sb.append(", ");
-            }
-            sb.append(u.getLogin());
-        }
-        return sb.toString();
     }
 
     private boolean ehAdmin(Usuario usuarioLogado) {
@@ -115,7 +101,21 @@ public class ProjetoController extends HttpServlet {
     }
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ordem = request.getParameter("ordem");
+        if (ordem == null) {
+            ordem = "nome";
+        }
+
         List<Projeto> listaProjetos = projetoDAO.getAll();
+        switch (ordem) {
+            case "nome":
+                listaProjetos.sort(Comparator.comparing(Projeto::getNome));
+                break;
+            case "data":
+                listaProjetos.sort(Comparator.comparing(Projeto::getDataCriacao).reversed());
+                break;
+        }
+
         request.setAttribute("listaProjetos", listaProjetos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projeto/lista.jsp");
         dispatcher.forward(request, response);
@@ -157,7 +157,6 @@ public class ProjetoController extends HttpServlet {
         List<Usuario> membros = new ArrayList<>();
         List<String> mensagens = new ArrayList<>();
 
-        // Validação de campos obrigatórios
         if (nome == null || nome.trim().isEmpty()) {
             mensagens.add("O campo Nome é obrigatório.");
         }
@@ -194,8 +193,6 @@ public class ProjetoController extends HttpServlet {
         projetoDAO.insert(projeto);
         response.sendRedirect("lista");
     }
-
-
 
     private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -244,11 +241,6 @@ public class ProjetoController extends HttpServlet {
         projetoDAO.update(projeto);
         response.sendRedirect("lista");
     }
-
-
-
-
-
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long id = Long.parseLong(request.getParameter("id"));
