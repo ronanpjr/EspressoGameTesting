@@ -63,85 +63,104 @@ public class AdminController extends HttpServlet {
         adminDAO = new AdminDAO();
     }
 
-    protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta)
-            throws ServletException, IOException {
-        String acao = requisicao.getParameter("action");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        Erro erros = new Erro();
+        if (usuario == null) {
+            response.sendRedirect(request.getContextPath());
+        } else if (usuario.getPapel().equals("admin")) {
+            try {
+                listarAdmins(request, response);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            erros.add("Acesso não autorizado!");
+            erros.add("Apenas Papel [admin] tem acesso a essa página");
+            request.setAttribute("mensagens", erros);
+            RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+            rd.forward(request, response);
+        }
+
+        String acao = request.getParameter("action");
         try {
             switch (acao == null ? "listar" : acao) {
                 case "novo":
-                    mostrarFormulario(requisicao, resposta);
+                    mostrarFormulario(request, response);
                     break;
                 case "inserir":
-                    inserirAdmin(requisicao, resposta);
+                    inserirAdmin(request, response);
                     break;
                 case "editar":
-                    mostrarFormularioEdicao(requisicao, resposta);
+                    mostrarFormularioEdicao(request, response);
                     break;
                 case "atualizar":
-                    atualizarAdmin(requisicao, resposta);
+                    atualizarAdmin(request, response);
                     break;
                 case "remover":
-                    removerAdmin(requisicao, resposta);
+                    removerAdmin(request, response);
                     break;
                 default:
-                    listarAdmins(requisicao, resposta);
+                    listarAdmins(request, response);
                     break;
             }
         } catch (Exception ex) {
-            requisicao.setAttribute("mensagemErro", ex.getMessage());
-            requisicao.getRequestDispatcher("erro.jsp").forward(requisicao, resposta);
+            request.setAttribute("mensagemErro", ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 
-    private void listarAdmins(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void listarAdmins(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         List<Usuario> lista = adminDAO.listarTodos();
-        requisicao.setAttribute("admins", lista);
-        requisicao.getRequestDispatcher("admin/list.jsp").forward(requisicao, resposta);
+        request.setAttribute("admins", lista);
+        request.getRequestDispatcher("/logado/admin/list.jsp").forward(request, response);
     }
 
-    private void mostrarFormulario(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void  mostrarFormulario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        requisicao.setAttribute("admin", new Usuario());
-        requisicao.getRequestDispatcher("admin/form.jsp").forward(requisicao, resposta);
+        request.setAttribute("admin", new Usuario());
+        request.getRequestDispatcher("/logado/admin/form.jsp").forward(request, response);
     }
 
-    private void inserirAdmin(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void inserirAdmin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nome = requisicao.getParameter("name");
-        String login = requisicao.getParameter("email");
-        String senha = requisicao.getParameter("password");
+        String nome = request.getParameter("name");
+        String login = request.getParameter("email");
+        String senha = request.getParameter("password");
 
         Usuario admin = new Usuario(0L, nome, login, senha, "admin");
         adminDAO.inserir(admin);
-        resposta.sendRedirect("admin");
+        response.sendRedirect("admin");
     }
 
-    private void mostrarFormularioEdicao(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void mostrarFormularioEdicao(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(requisicao.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         Usuario admin = adminDAO.buscarPorId(id);
-        requisicao.setAttribute("admin", admin);
-        requisicao.getRequestDispatcher("admin/form.jsp").forward(requisicao, resposta);
+        request.setAttribute("admin", admin);
+        request.getRequestDispatcher("/logado/admin/form.jsp").forward(request, response);
     }
 
-    private void atualizarAdmin(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void atualizarAdmin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        int id = Integer.parseInt(requisicao.getParameter("id"));
-        String nome = requisicao.getParameter("name");
-        String login = requisicao.getParameter("email");
-        String senha = requisicao.getParameter("password");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nome = request.getParameter("name");
+        String login = request.getParameter("email");
+        String senha = request.getParameter("password");
 
 
         Usuario admin = new Usuario(0L, nome, login, senha, "admin");
         adminDAO.atualizar(admin);
-        resposta.sendRedirect("admin");
+        response.sendRedirect("lista");
     }
 
-    private void removerAdmin(HttpServletRequest requisicao, HttpServletResponse resposta)
+    private void removerAdmin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        int id = Integer.parseInt(requisicao.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         adminDAO.remover(id);
-        resposta.sendRedirect("admin");
+        response.sendRedirect("lista");
     }
 }
