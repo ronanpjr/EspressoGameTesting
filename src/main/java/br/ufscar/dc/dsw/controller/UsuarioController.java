@@ -45,8 +45,8 @@ public class UsuarioController extends HttpServlet {
         }
 
         if (!action.equals("") && !action.equals("/") && !(usuarioLogado.getPapel().equalsIgnoreCase("tester") || usuarioLogado.getPapel().equalsIgnoreCase("admin"))) {
-            erros.add("error.unauthorized.title"); // Usa chave
-            erros.add("error.unauthorized.tester_admin"); // Usa chave
+            erros.add("error.unauthorized.title");
+            erros.add("error.unauthorized.tester_admin");
             request.setAttribute("mensagens", erros);
             RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
             rd.forward(request, response);
@@ -90,9 +90,13 @@ public class UsuarioController extends HttpServlet {
                         erroNaoAutorizado(request, response, erros);
                     }
                     break;
-                default:
+                case "/lista":
                     lista(request, response); // Lista pode ser vista por admin e tester
                     break;
+                default:
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/usuario/main.jsp");
+                    dispatcher.forward(request, response);
+
             }
         } catch (RuntimeException | IOException | ServletException e) {
             e.printStackTrace();
