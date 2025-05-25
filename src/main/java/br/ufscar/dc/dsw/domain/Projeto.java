@@ -9,7 +9,7 @@ public class Projeto {
     private String descricao;
     private Date dataCriacao;
     private List<Usuario> membros;
-    //private List<SessaoDeTeste> sessaoDeTestes;
+    private List<SessaoTeste> sessaoTestes;
 
     public Projeto(String nome, String descricao, Date dataCriacao, List<Usuario> membros) {
         this.nome = nome;

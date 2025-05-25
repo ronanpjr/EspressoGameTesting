@@ -83,6 +83,7 @@
             <th><fmt:message key="project.table.creation_date" /></th>
             <th><fmt:message key="project.table.members" /></th>
             <th><fmt:message key="project.table.actions" /></th>
+            <th><fmt:message key="sessao.tabela.acoesSessao" /></th>
         </tr>
         <fmt:message key="confirm.project.delete" var="confirmMsg" />
 
@@ -110,6 +111,17 @@
                         <a href="${pageContext.request.contextPath}/admin/projetos/remocao?id=${projeto.id}"
                            onclick="return confirm('${confirmMsg}');">
                             <fmt:message key="button.remove" />
+                        </a>
+                    </c:if>
+                </td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/sessao/listaPorProjeto?idProjeto=${projeto.id}">
+                        <fmt:message key="projeto.link.verSessoes"/>
+                    </a><br/>
+                    <br>
+                    <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
+                        <a href="${pageContext.request.contextPath}/sessao/cadastro?idProjeto=${projeto.id}">
+                            <fmt:message key="projeto.link.novaSessao"/>
                         </a>
                     </c:if>
                 </td>

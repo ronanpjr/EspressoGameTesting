@@ -164,4 +164,19 @@ public class ProjetoDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isUsuarioMembro(Long idProjeto, Long idUsuario) {
+        if (idProjeto == null || idUsuario == null) {
+            return false;
+        }
+        Projeto projeto = this.get(idProjeto);
+        if (projeto != null && projeto.getMembros() != null) {
+            for (Usuario membro : projeto.getMembros()) {
+                if (membro.getId() != null && membro.getId().equals(idUsuario)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
