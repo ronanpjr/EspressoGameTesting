@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Sistema de Projetos</title>
+    <link href="${pageContext.request.contextPath}/lista_layout.css" rel="stylesheet" type="text/css"/>
     <style>
         body {
             font-family: Arial, sans-serif;

@@ -1,7 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.ProjetoDAO;
-import br.ufscar.dc.dsw.dao.UsuarioDAO.UsuarioDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Projeto;
 import br.ufscar.dc.dsw.domain.Usuario;
 
@@ -38,7 +38,7 @@ public class ProjetoController extends HttpServlet {
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        if (usuario == null || !"ADMIN".equals(usuario.getPapel())) {
+        if (usuario == null || !"ADMIN".equalsIgnoreCase(usuario.getPapel())) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
@@ -51,7 +51,7 @@ public class ProjetoController extends HttpServlet {
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        if (usuario == null || !"ADMIN".equals(usuario.getPapel())) {
+        if (usuario == null || !"ADMIN".equalsIgnoreCase(usuario.getPapel())) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
