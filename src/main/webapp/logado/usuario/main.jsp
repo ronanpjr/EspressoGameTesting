@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="nav-container">
-    <h1> <fmt:message key="welcome.title"/> <c:out value="${sessionScope.usuarioLogado.nome}"/>! </h1>
+    <h1> <fmt:message key="welcome.title2"/> <c:out value="${sessionScope.usuarioLogado.nome}"/>! </h1>
     <h2><fmt:message key="welcome.subtitle" /></h2>
     <ul>
         <li>

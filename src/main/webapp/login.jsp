@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<h1><fmt:message key="welcome.title" /></h1>
+<h1><fmt:message key="welcome.title1" /></h1>
 <h2><fmt:message key="welcome.subtitle" /></h2>
 
 <%-- Botões/Links para trocar idioma --%>
