@@ -36,6 +36,9 @@
             color: white;
             font-weight: bold;
         }
+        .ordenacao {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +56,21 @@
             </a>
         </c:if>
     </h2>
+</div>
+
+<div align="center" class="ordenacao">
+    <p>
+        <strong>Ordenar por:</strong>
+        <a href="${pageContext.request.contextPath}/admin/projetos/lista?ordem=nome"
+           style="${param.ordem == 'nome' || param.ordem == null ? 'font-weight:bold;' : ''}">
+            Nome
+        </a>
+        |
+        <a href="${pageContext.request.contextPath}/admin/projetos/lista?ordem=data"
+           style="${param.ordem == 'data' ? 'font-weight:bold;' : ''}">
+            Data de Criação
+        </a>
+    </p>
 </div>
 
 <div align="center">
@@ -99,5 +117,6 @@
         </c:forEach>
     </table>
 </div>
+
 </body>
 </html>
