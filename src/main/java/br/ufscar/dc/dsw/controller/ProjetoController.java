@@ -5,6 +5,7 @@ import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Projeto;
 import br.ufscar.dc.dsw.domain.Usuario;
 
+import br.ufscar.dc.dsw.util.Erro;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,7 +38,7 @@ public class ProjetoController extends HttpServlet {
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        if (usuario == null || !"ADMIN".equalsIgnoreCase(usuario.getPapel())) {
+        if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
@@ -45,12 +46,13 @@ public class ProjetoController extends HttpServlet {
         doGet(request, response);
     }
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        if (usuario == null || !"ADMIN".equalsIgnoreCase(usuario.getPapel())) {
+        if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
@@ -64,26 +66,38 @@ public class ProjetoController extends HttpServlet {
         try {
             switch (action) {
                 case "/cadastro":
+                    if(!ehAdmin(usuario)) break;
                     apresentaFormCadastro(request, response);
                     return;
                 case "/insercao":
+                    if(!ehAdmin(usuario)) break;
                     insere(request, response);
                     return;
                 case "/remocao":
+                    if(!ehAdmin(usuario)) break;
                     remove(request, response);
                     return;
                 case "/edicao":
+                    if(!ehAdmin(usuario)) break;
                     apresentaFormEdicao(request, response);
                     return;
                 case "/atualizacao":
+                    if(!ehAdmin(usuario)) break;
                     atualize(request, response);
-                    return;
+                    break;
+                case "/detalhes":
+                    detalhes(request, response);
+                    break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/admin/projetos");
             }
         } catch (RuntimeException | IOException | ServletException e) {
             throw new ServletException(e);
         }
+    }
+
+    private boolean ehAdmin(Usuario usuarioLogado) {
+        return usuarioLogado != null && usuarioLogado.getPapel().equalsIgnoreCase("admin");
     }
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,6 +118,14 @@ public class ProjetoController extends HttpServlet {
 
         request.setAttribute("listaProjetos", listaProjetos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/projeto/lista.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void detalhes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Projeto projeto = projetoDAO.get(id);
+        request.setAttribute("projeto", projeto);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/projeto/detalhes.jsp");
         dispatcher.forward(request, response);
     }
 
