@@ -15,7 +15,7 @@ Bem-vindo ao EspressoGameTesting! Sua cafeteria de testes
 ### 1. Clone o repositório
 
 Abra o prompt e execute esse comando: 
-**git clone https://github.com/seu-usuario/EspressoGameTesting.git**
+**git clone https://github.com/seu-usuario/EspressoGameTesting.git**  
 **cd EspressoGameTesting**
 
 ### 2. Instale as dependencias via Maven
