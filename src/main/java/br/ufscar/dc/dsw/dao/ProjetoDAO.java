@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import br.ufscar.dc.dsw.dao.UsuarioDAO.UsuarioDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Projeto;
 import br.ufscar.dc.dsw.domain.Usuario;
 //import br.ufscar.dc.dsw.domain.SessaoDeTestes;
@@ -46,7 +46,7 @@ public class ProjetoDAO extends GenericDAO {
             UsuarioDAO usuarioDAO = new UsuarioDAO(); // Importante!
 
             while (rs.next()) {
-                Long id = rs.getLong("id");
+                Long id = rs.getLong("id_projeto");
                 String nome = rs.getString("nome");
                 String descricao = rs.getString("descricao");
                 Date dataCriacao = rs.getDate("data_criacao");
@@ -82,7 +82,7 @@ public class ProjetoDAO extends GenericDAO {
 
     public Projeto get(Long id) {
         Projeto projeto = null;
-        String sql = "SELECT * FROM Projeto WHERE id = ?";
+        String sql = "SELECT * FROM Projeto WHERE id_projeto = ?";
 
         try (Connection conn = this.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -127,7 +127,7 @@ public class ProjetoDAO extends GenericDAO {
 
 
     public void update(Projeto projeto) {
-        String sql = "UPDATE Projeto SET nome = ?, descricao = ?, data_criacao = ?, membros = ? WHERE id = ?";
+        String sql = "UPDATE Projeto SET nome = ?, descricao = ?, data_criacao = ?, membros = ? WHERE id_projeto = ?";
 
         try (Connection conn = this.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -152,7 +152,7 @@ public class ProjetoDAO extends GenericDAO {
     }
 
     public void delete(Projeto projeto) {
-        String sql = "DELETE FROM Projeto WHERE id = ?";
+        String sql = "DELETE FROM Projeto WHERE id_projeto = ?";
 
         try (Connection conn = this.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {

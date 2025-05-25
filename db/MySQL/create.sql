@@ -27,7 +27,8 @@ CREATE TABLE Projeto (
                          id_projeto INT AUTO_INCREMENT PRIMARY KEY,
                          nome VARCHAR(255) NOT NULL UNIQUE,
                          descricao TEXT,
-                         data_criacao DATE NOT NULL
+                         data_criacao DATE NOT NULL,
+                         membros TEXT NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE MembroProjeto (
