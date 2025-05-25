@@ -19,18 +19,18 @@ Abra o prompt e execute esse comando:
 **cd EspressoGameTesting**
 
 ### 2. Instale as dependencias via Maven
-execute:
+execute:  
 **mvn clean install**
 
 ### 3. Configuração do Banco de Dados
-Crie o banco executando o script SQL localizado em:
+Crie o banco executando o script SQL localizado em:  
 db/MySQL/create.sql
-Você pode usar o terminal do MySQL:
+Você pode usar o terminal do MySQL:  
 **mysql -u root -p < db/MySQL/create.sql**
 
 ### 4. Build e Deploy
 - **1. Gerar o arquivo .war**
-  execute:
+  execute:  
   **mvn package**
   O arquivo .war será gerado em target/EspressoGameTesting.war.
 - **2. Deploy no Apache Tomcat**
