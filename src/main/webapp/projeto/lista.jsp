@@ -71,8 +71,12 @@
         <c:forEach var="projeto" items="${requestScope.listaProjetos}">
             <tr>
                 <td>${projeto.id}</td>
-                <td><c:out value="${projeto.nome}"/></td>
-                <td><c:out value="${projeto.descricao}"/></td>
+                <td class="nome">
+                    <a href="${pageContext.request.contextPath}/admin/projetos/detalhes?id=${projeto.id}">
+                        <c:out value="${projeto.nome}"/>
+                    </a>
+                </td>
+                <td class="descricao"><c:out value="${projeto.descricao}"/></td>
                 <td><fmt:formatDate value="${projeto.dataCriacao}" pattern="dd/MM/yyyy" /></td>
                 <td>
                     <c:forEach var="membro" items="${projeto.membros}">
