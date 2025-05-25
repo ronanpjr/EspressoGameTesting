@@ -11,7 +11,7 @@ import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
 
-@WebServlet(name = "Index", urlPatterns = { "/index.jsp", "/logout.jsp" })
+@WebServlet(name = "Index", urlPatterns = { "/index.jsp", "/logout.jsp"})
 public class IndexController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +26,6 @@ public class IndexController extends HttpServlet {
 
         String lang = request.getParameter("lang");
         if (lang != null && !lang.isEmpty()) {
-            System.out.println(">>>>>>>>> Trocando idioma para: " + lang);
             request.getSession().setAttribute("lang", lang);
             String queryString = request.getQueryString();
             queryString = queryString.replaceAll("^lang=[^&]*&?", "");
@@ -56,7 +55,7 @@ public class IndexController extends HttpServlet {
                         }
 
                         if (usuario.getPapel().equalsIgnoreCase("ADMIN")) {
-                            response.sendRedirect("admin/");
+                            response.sendRedirect("usuario/");
                         } else {
                             response.sendRedirect("usuario/");
                         }
