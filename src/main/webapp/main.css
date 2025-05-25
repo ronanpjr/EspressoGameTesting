@@ -71,7 +71,7 @@ h1::after {
 
 h2 {
     font-family: 'Maple Mono', monospace;
-    font-size: 1.6em;
+    font-size: 2em;
     color: #5d4037;
     margin-bottom: 20px;
     border-bottom: 1px dashed #bcaaa4;
@@ -110,6 +110,7 @@ nav a:hover, nav a.active {
 
 /* === Links Gerais === */
 a {
+    font-size: 16pt;
     color: #5d4037;
     text-decoration: none;
     font-weight: bold;
@@ -138,7 +139,7 @@ table caption {
     font-size: 1.8em;
     font-weight: 700;
     padding: 15px 20px;
-    background: #d7ccc8;
+    background: #f3e5bb;
     color: #4e342e;
     border-bottom: 3px solid #6d4c41;
 }
