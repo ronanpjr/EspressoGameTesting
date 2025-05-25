@@ -24,7 +24,7 @@ execute:
 
 ### 3. Configuração do Banco de Dados
 Crie o banco executando o script SQL localizado em:  
-db/MySQL/create.sql
+db/MySQL/create.sql  
 Você pode usar o terminal do MySQL:  
 **mysql -u root -p < db/MySQL/create.sql**
 
@@ -34,8 +34,8 @@ Você pode usar o terminal do MySQL:
   **mvn package**
   O arquivo .war será gerado em target/EspressoGameTesting.war.
 - **2. Deploy no Apache Tomcat**
-  Copie o arquivo .war para a pasta webapps do seu Tomcat.
-  Inicie o servidor com startup.bat (Windows) ou startup.sh (Linux/macOS).
+  Copie o arquivo .war para a pasta webapps do seu Tomcat.  
+  Inicie o servidor com startup.bat (Windows) ou startup.sh (Linux/macOS).  
   Acesse: http://localhost:8080/EspressoTesting
   
 
