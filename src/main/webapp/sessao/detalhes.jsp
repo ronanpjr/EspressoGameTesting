@@ -53,14 +53,14 @@
     <div class="status-actions">
         <h3><fmt:message key="sessao.detalhes.acoesStatus" /></h3>
         <c:if test="${sessao.status.name() == 'CREATED'}">
-            <form method="post" action="${pageContext.request.contextPath}/sessao/atualizaStatus" style="display: inline-block; margin-right: 10px;">
+            <form method="post" action="${pageContext.request.contextPath}/sessoes/atualizaStatus" style="display: inline-block; margin-right: 10px;">
                 <input type="hidden" name="idSessao" value="${sessao.id}" />
                 <input type="hidden" name="novoStatus" value="in_execution" />
                 <input type="submit" value="<fmt:message key="sessao.detalhes.botao.iniciar" />" />
             </form>
         </c:if>
         <c:if test="${sessao.status.name() == 'IN_EXECUTION'}">
-            <form method="post" action="${pageContext.request.contextPath}/sessao/atualizaStatus" style="display: inline-block; margin-right: 10px;">
+            <form method="post" action="${pageContext.request.contextPath}/sessoes/atualizaStatus" style="display: inline-block; margin-right: 10px;">
                 <input type="hidden" name="idSessao" value="${sessao.id}" />
                 <input type="hidden" name="novoStatus" value="finalized" />
                 <input type="submit" value="<fmt:message key="sessao.detalhes.botao.finalizar" />" />
@@ -71,7 +71,7 @@
         </c:if>
 
         <c:if test="${sessionScope.usuarioLogado.papel == 'admin'}">
-            <form method="post" action="${pageContext.request.contextPath}/sessao/remocao"
+            <form method="post" action="${pageContext.request.contextPath}/sessoes/remocao"
                   style="display: inline-block;"
                   onsubmit="return confirm('<fmt:message key="sessao.confirmarRemocao"/>');">
                 <input type="hidden" name="idSessao" value="${sessao.id}" />
@@ -115,8 +115,8 @@
     </div>
     <hr/>
     <p>
-        <a href="${pageContext.request.contextPath}/sessao/listaPorProjeto?idProjeto=${sessao.idProjeto}"><fmt:message key="comum.voltarListaSessoesProjeto" /></a> |
-        <a href="${pageContext.request.contextPath}/sessao/minhasSessoes"><fmt:message key="comum.voltarMinhasSessoes" /></a> |
+        <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=${sessao.idProjeto}"><fmt:message key="comum.voltarListaSessoesProjeto" /></a> |
+        <a href="${pageContext.request.contextPath}/sessoes/minhasSessoes"><fmt:message key="comum.voltarMinhasSessoes" /></a> |
         <a href="${pageContext.request.contextPath}/projeto/lista"><fmt:message key="link.projects" /></a>
     </p>
 </c:if>

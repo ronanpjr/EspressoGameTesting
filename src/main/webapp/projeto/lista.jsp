@@ -115,12 +115,12 @@
                     </c:if>
                 </td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/sessao/listaPorProjeto?idProjeto=${projeto.id}">
+                    <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=${projeto.id}">
                         <fmt:message key="projeto.link.verSessoes"/>
                     </a><br/>
                     <br>
                     <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
-                        <a href="${pageContext.request.contextPath}/sessao/cadastro?idProjeto=${projeto.id}">
+                        <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${projeto.id}">
                             <fmt:message key="projeto.link.novaSessao"/>
                         </a>
                     </c:if>

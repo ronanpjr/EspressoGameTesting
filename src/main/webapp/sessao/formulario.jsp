@@ -25,7 +25,7 @@
     </div>
 </c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/sessao/insercao">
+<form method="post" action="${pageContext.request.contextPath}/sessoes/insercao">
     <input type="hidden" name="idProjeto" value="<c:out value='${projeto.id}' default='${param.idProjeto}'/>" />
 
     <table>
@@ -78,7 +78,7 @@
 </form>
 
 <p style="text-align: center; margin-top: 20px;">
-    <a href="${pageContext.request.contextPath}/sessao/listaPorProjeto?idProjeto=<c:out value='${projeto.id}' default='${param.idProjeto}'/>">
+    <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=<c:out value='${projeto.id}' default='${param.idProjeto}'/>">
         <fmt:message key="comum.voltarListaSessoesProjeto" />
     </a>
     |

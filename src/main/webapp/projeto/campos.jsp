@@ -12,7 +12,7 @@
             <c:otherwise>
                 Cadastro
             </c:otherwise>
-        </c:choose>
+        </c:choose>G
     </caption>
     <c:if test="${projeto != null}">
         <input type="hidden" name="id" value="${projeto.id}" />

@@ -17,7 +17,7 @@
   <h1><fmt:message key="sessoesPorProjeto.list.title"/>: <c:out value="${projeto.nome}"/></h1>
   <p>
     <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
-      <a href="${pageContext.request.contextPath}/sessao/cadastro?idProjeto=${projeto.id}">
+      <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${projeto.id}">
         <fmt:message key="sessao.listagem.nova"/>
       </a>
       &nbsp;|&nbsp;
@@ -65,7 +65,7 @@
         <th><fmt:message key="sessao.tabela.tester"/></th>
 <%--        <th><fmt:message key="sessao.tabela.estrategia"/></th>--%>
         <th><fmt:message key="sessao.tabela.duracao"/></th>
-        <th><fmt:message key="sessao.tabela.descricaoResumida"/></th>
+        <th><fmt:message key="sessao.tabela.descricao"/></th>
         <th><fmt:message key="sessao.tabela.status"/></th>
         <th><fmt:message key="sessao.tabela.acoes"/></th>
       </tr>
@@ -90,10 +90,10 @@
           </td>
           <td><fmt:message key="status.${sessao.status.name()}"/></td>
           <td>
-            <a href="${pageContext.request.contextPath}/sessao/detalhes?idSessao=${sessao.id}"><fmt:message key="comum.link.detalhes"/></a>
+            <a href="${pageContext.request.contextPath}/sessoes/detalhes?idSessao=${sessao.id}"><fmt:message key="comum.link.detalhes"/></a>
             <c:if test="${sessionScope.usuarioLogado.papel == 'admin'}">
               &nbsp;|&nbsp;
-              <a href="${pageContext.request.contextPath}/sessao/remocao?idSessao=${sessao.id}"
+              <a href="${pageContext.request.contextPath}/sessoes/remocao?idSessao=${sessao.id}"
                  onclick="return confirm('<fmt:message key="sessao.confirmarRemocao"/>');"><fmt:message key="comum.botao.remover"/></a>
             </c:if>
           </td>

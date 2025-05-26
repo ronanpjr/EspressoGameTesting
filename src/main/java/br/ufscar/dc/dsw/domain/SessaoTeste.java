@@ -106,17 +106,12 @@ public class SessaoTeste {
         this.descricao = descricao;
     }
 
-    public StatusSessaoTeste getStatus() { // 3. Getter returns StatusSessao
+    public StatusSessaoTeste getStatus() {
         return status;
     }
 
-    public void setStatus(StatusSessaoTeste status) { // 4. Setter accepts StatusSessao
+    public void setStatus(StatusSessaoTeste status) {
         this.status = status;
-    }
-
-    // Convenience method if you still need to set status from a string (e.g., from DB)
-    public void setStatusFromString(String statusStr) {
-        this.status = StatusSessaoTeste.fromString(statusStr);
     }
 
     public List<HistoricoStatusSessaoTeste> getHistoricoStatus() {

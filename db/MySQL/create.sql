@@ -84,3 +84,47 @@ CREATE TABLE HistoricoStatusSessao (
                                        FOREIGN KEY (id_sessao) REFERENCES Sessao(id_sessao) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+
+INSERT INTO Usuario(nome, login, senha, papel) VALUES ('Ana Testadora', 'ana', 'ana123', 'tester');
+
+INSERT INTO Estrategia (nome, descricao) VALUES
+                                             ('Exploração Baseada em Roteiro', 'Segue um conjunto predefinido de passos ou cenários de usuário para testar funcionalidades específicas.'),
+                                             ('Testes Ad-hoc', 'Testes informais e improvisados, sem planejamento ou documentação formal, baseados na intuição e experiência do testador.'),
+                                             ('Caça-Bugs Competitivo', 'Vários testadores competem para encontrar o maior número de bugs ou os bugs mais críticos em um período de tempo limitado.'),
+                                             ('Teste de Personas', 'O testador assume diferentes perfis de jogadores (ex: novato, experiente, casual, hardcore) para explorar o jogo sob diversas perspectivas.');
+
+INSERT INTO Projeto (nome, descricao, data_criacao, membros) VALUES
+                                                                 ('A Lenda da Espada Perdida', 'RPG de ação em mundo aberto com temática medieval fantástica.', '2024-01-15', '1,2'),
+                                                                 ('Conquista Estelar X', 'Jogo de estratégia 4X espacial com múltiplas facções e customização de naves.', '2024-03-10', '2,3'),
+                                                                 ('A Fazendinha Feliz', 'Simulador de fazenda casual com foco em plantio, colheita e interação com animais.', CURDATE(), '1,2,3');
+
+INSERT INTO Sessao (id_projeto, id_tester, id_estrategia, duracao, descricao, status) VALUES
+    (1, 2, 1, '01:30:00', 'Testar a sequência de quests iniciais da vila principal, seguindo o roteiro de progressão do jogador.', 'created');                                                                                                                                                        INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (1, NULL, 'created', NOW());
+
+INSERT INTO Sessao (id_projeto, id_tester, id_estrategia, duracao, descricao, status) VALUES
+    (1, 3, 2, '02:00:00', 'Exploração livre do mapa da floresta inicial, tentando interagir com todos os elementos e NPCs de formas não usuais.', 'in_execution');
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (2, NULL, 'created', DATE_SUB(NOW(), INTERVAL 2 HOUR));
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (2, 'created', 'in_execution', DATE_SUB(NOW(), INTERVAL 1 HOUR));
+
+INSERT INTO Sessao (id_projeto, id_tester, id_estrategia, duracao, descricao, status) VALUES
+    (2, 2, 4, '01:15:00', 'Jogar como um "Mercador Pacifista", focando em rotas de comércio e diplomacia, evitando combate.', 'finalized');
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (3, NULL, 'created', DATE_SUB(NOW(), INTERVAL 1 DAY));
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (3, 'created', 'in_execution', DATE_SUB(NOW(), INTERVAL 20 HOUR));
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (3, 'in_execution', 'finalized', DATE_SUB(NOW(), INTERVAL 18 HOUR));
+
+INSERT INTO Sessao (id_projeto, id_tester, id_estrategia, duracao, descricao, status) VALUES
+    (3, 1, 3, '00:45:00', 'Sessão rápida para tentar encontrar o maior número de bugs visuais na interface de plantio.', 'created');
+
+INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
+    (4, NULL, 'created', NOW());

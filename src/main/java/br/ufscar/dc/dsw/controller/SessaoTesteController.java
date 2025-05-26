@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/sessao/*")
+@WebServlet(urlPatterns = "/sessoes/*")
 public class SessaoTesteController extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -44,68 +44,61 @@ public class SessaoTesteController extends HttpServlet {
             throws ServletException, IOException {
         Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
         Erro erros = new Erro();
-
         request.setAttribute("mensagens", erros);
-
-
         if (usuarioLogado == null) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
-
         String action = request.getPathInfo();
-
         if (action == null || action.equals("/") || action.isEmpty()) {
-            action = "/minhasSessoes";
+            action = "/minhas-sessoes";
         }
-
         Erro flashErros = (Erro) request.getSession().getAttribute("mensagensFlash");
         if (flashErros != null) {
             erros.getErros().addAll(flashErros.getErros());
             request.getSession().removeAttribute("mensagensFlash");
         }
         try {
-            System.out.println("teste" + action);
             switch (action) {
-                case "/cadastro.jsp":
+                case "/cadastro":
                     if (isTester(usuarioLogado) || isAdmin(usuarioLogado)) {
                         apresentaFormCadastro(request, response, erros);
                     } else {
                         acessoNegado(request, response, erros, "error.unauthorized.title");
                     }
                     break;
-                case "/insercao.jsp":
+                case "/insercao":
                     if (isTester(usuarioLogado) || isAdmin(usuarioLogado)) {
                         insere(request, response, erros, usuarioLogado);
                     } else {
                         acessoNegado(request, response, erros, "error.unauthorized.title");
                     }
                     break;
-                case "/listaPorProjeto.jsp":
+                case "/lista-projeto":
                     listaPorProjeto(request, response, erros, usuarioLogado);
                     break;
-                case "/minhasSessoes.jsp":
+                case "/minhas-sessoes":
                     if (isTester(usuarioLogado) || isAdmin(usuarioLogado)) {
                         listaPorTester(request, response, erros, usuarioLogado);
                     } else {
                         acessoNegado(request, response, erros, "error.unauthorized.title");
                     }
                     break;
-                case "/detalhes.jsp":
+                case "/detalhes":
                     if (isTester(usuarioLogado) || isAdmin(usuarioLogado)) {
                         detalhesSessao(request, response, erros, usuarioLogado);
                     } else {
                         acessoNegado(request, response, erros, "error.unauthorized.title");
                     }
                     break;
-                case "/atualizaStatus.jsp":
+                case "/atualizaStatus":
                     if (isTester(usuarioLogado) || isAdmin(usuarioLogado)) {
                         atualizaStatus(request, response, erros, usuarioLogado);
                     } else {
                         acessoNegado(request, response, erros, "error.unauthorized.title");
                     }
                     break;
-                case "/remocao.jsp":
+                case "/remocao":
                     if (isAdmin(usuarioLogado)) {
                         remove(request, response, erros);
                     } else {
@@ -178,9 +171,9 @@ public class SessaoTesteController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Long idProjeto = null;
-        Long idEstrategia = null;
+       // Long idEstrategia = null;
         String idProjetoParam = request.getParameter("idProjeto");
-        String idEstrategiaParam = request.getParameter("idEstrategia");
+       // String idEstrategiaParam = request.getParameter("idEstrategia");
         String duracaoStr = request.getParameter("duracao");
         String descricao = request.getParameter("descricao");
 
@@ -195,15 +188,15 @@ public class SessaoTesteController extends HttpServlet {
                 }
             }
 
-            if (idEstrategiaParam == null || idEstrategiaParam.isEmpty()) {
-                erros.add("sessao.erro.idEstrategiaObrigatorio");
-            } else {
-                try {
-                    idEstrategia = Long.parseLong(idEstrategiaParam);
-                } catch (NumberFormatException e) {
-                    erros.add("sessao.erro.idEstrategiaInvalido");
-                }
-            }
+//            if (idEstrategiaParam == null || idEstrategiaParam.isEmpty()) {
+//                erros.add("sessao.erro.idEstrategiaObrigatorio");
+//            } else {
+//                try {
+//                    idEstrategia = Long.parseLong(idEstrategiaParam);
+//                } catch (NumberFormatException e) {
+//                    erros.add("sessao.erro.idEstrategiaInvalido");
+//                }
+//            }
 
             if (duracaoStr == null || duracaoStr.trim().isEmpty()) {
                 erros.add("sessao.erro.duracaoObrigatoria");
@@ -235,7 +228,7 @@ public class SessaoTesteController extends HttpServlet {
 
             if (erros.isExisteErros()) {
                 request.setAttribute("idProjetoParam", idProjetoParam);
-                request.setAttribute("idEstrategiaParam", idEstrategiaParam);
+               // request.setAttribute("idEstrategiaParam", idEstrategiaParam);
                 request.setAttribute("duracaoParam", duracaoStr);
                 request.setAttribute("descricaoParam", descricao);
                 // List<Estrategia> estrategias = estrategiaDAO.getAll();
@@ -245,15 +238,15 @@ public class SessaoTesteController extends HttpServlet {
                 return;
             }
 
-            SessaoTeste sessao = new SessaoTeste(idProjeto, usuarioLogado.getId(), idEstrategia, duracao, descricao);
+            SessaoTeste sessao = new SessaoTeste(idProjeto, usuarioLogado.getId(), 1L, duracao, descricao);
             sessaoTesteDAO.insert(sessao);
-            response.sendRedirect(request.getContextPath() + "/sessao/detalhes?idSessao=" + sessao.getId());
+            response.sendRedirect(request.getContextPath() + "/sessoes/detalhes?idSessao=" + sessao.getId());
 
         } catch (Exception e) {
             erros.add("sessao.erro.inesperadoInsercao");
             e.printStackTrace();
             request.setAttribute("idProjetoParam", idProjetoParam);
-            request.setAttribute("idEstrategiaParam", idEstrategiaParam);
+           // request.setAttribute("idEstrategiaParam", idEstrategiaParam);
             request.setAttribute("duracaoParam", duracaoStr);
             request.setAttribute("descricaoParam", descricao);
             if (idProjeto != null) request.setAttribute("projeto", projetoDAO.get(idProjeto));
@@ -292,7 +285,6 @@ public class SessaoTesteController extends HttpServlet {
             request.setAttribute("listaSessoes", listaSessoes);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/sessao/listaPorProjeto.jsp");
             dispatcher.forward(request, response);
-
         } catch (NumberFormatException e) {
             erros.add("sessao.erro.idProjetoInvalido");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/erro.jsp");
@@ -302,8 +294,8 @@ public class SessaoTesteController extends HttpServlet {
 
     private void listaPorTester(HttpServletRequest request, HttpServletResponse response, Erro erros, Usuario usuarioLogado)
             throws ServletException, IOException {
-        // List<SessSessaoTeste> listaSessoes = sessaoTesteDAO.getAllByTesterId(usuarioLogado.getId());
-        // request.setAttribute("listaSessoes", listaSessoes);
+        List<SessaoTeste> listaSessoes = sessaoTesteDAO.getAllByTesterId(usuarioLogado.getId());
+        request.setAttribute("listaSessoes", listaSessoes);
         request.setAttribute("tituloLista", "minhasSessoes.list.title");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sessao/minhasSessoes.jsp");
         dispatcher.forward(request, response);
@@ -361,7 +353,7 @@ public class SessaoTesteController extends HttpServlet {
         if (idSessaoParam == null || novoStatusStr == null || novoStatusStr.trim().isEmpty()) {
             erros.add("sessao.erro.idSessaoStatusObrigatorio");
             request.getSession().setAttribute("mensagensFlash", erros);
-            response.sendRedirect(request.getHeader("Referer") != null ? request.getHeader("Referer") : request.getContextPath() + "/sessao/minhasSessoes");
+            response.sendRedirect(request.getHeader("Referer") != null ? request.getHeader("Referer") : request.getContextPath() + "/sessoes/minhasSessoes");
             return;
         }
 
@@ -376,7 +368,7 @@ public class SessaoTesteController extends HttpServlet {
             } catch (IllegalArgumentException e) {
                 erros.add("sessao.erro.statusInvalido");
                 request.getSession().setAttribute("mensagensFlash", erros);
-                response.sendRedirect(request.getContextPath() + "/sessao/detalhes?idSessao=" + idSessao);
+                response.sendRedirect(request.getContextPath() + "/sessoes/detalhes?idSessao=" + idSessao);
                 return;
             }
 
@@ -396,22 +388,22 @@ public class SessaoTesteController extends HttpServlet {
                     request.getSession().setAttribute("flashStatusAtual", request.getAttribute("statusAtual"));
                     request.getSession().setAttribute("flashStatusNovo", request.getAttribute("statusNovo"));
                 }
-                response.sendRedirect(request.getContextPath() + "/sessao/detalhes?idSessao=" + idSessao);
+                response.sendRedirect(request.getContextPath() + "/sessoes/detalhes?idSessao=" + idSessao);
                 return;
             }
 
             sessaoTesteDAO.updateStatus(idSessao, novoStatusEnum);
-            response.sendRedirect(request.getContextPath() + "/sessao/detalhes?idSessao=" + idSessao);
+            response.sendRedirect(request.getContextPath() + "/sessoes/detalhes?idSessao=" + idSessao);
 
         } catch (NumberFormatException e) {
             erros.add("sessao.erro.idSessaoInvalido");
             request.getSession().setAttribute("mensagensFlash", erros);
-            response.sendRedirect(request.getHeader("Referer") != null ? request.getHeader("Referer") : request.getContextPath() + "/sessao/minhasSessoes");
+            response.sendRedirect(request.getHeader("Referer") != null ? request.getHeader("Referer") : request.getContextPath() + "/sessoes/minhasSessoes");
         } catch (RuntimeException e) {
             erros.add("sessao.erro.inesperadoAtualizarStatus");
             e.printStackTrace();
             request.getSession().setAttribute("mensagensFlash", erros);
-            String redirectPath = (idSessao != null) ? "/sessao/detalhes?idSessao=" + idSessao : "/sessao/minhasSessoes";
+            String redirectPath = (idSessao != null) ? "/sessoes/detalhes?idSessao=" + idSessao : "/sessoes/minhasSessoes";
             response.sendRedirect(request.getContextPath() + redirectPath);
         }
     }
@@ -455,13 +447,13 @@ public class SessaoTesteController extends HttpServlet {
         if (erros.isExisteErros()) {
             request.getSession().setAttribute("mensagensFlash", erros);
             redirectUrl = (idProjetoRedirect != null) ?
-                    request.getContextPath() + "/sessao/listaPorProjeto?idProjeto=" + idProjetoRedirect :
-                    (idSessaoParam != null && !idSessaoParam.isEmpty() ? request.getContextPath() + "/sessao/detalhes?idSessao=" + idSessaoParam : request.getContextPath() + "/usuario/");
+                    request.getContextPath() + "/sessoes/listaPorProjeto?idProjeto=" + idProjetoRedirect :
+                    (idSessaoParam != null && !idSessaoParam.isEmpty() ? request.getContextPath() + "/sessoes/detalhes?idSessao=" + idSessaoParam : request.getContextPath() + "/usuario/");
             response.sendRedirect(redirectUrl);
             return;
         }
         redirectUrl = (idProjetoRedirect != null) ?
-                request.getContextPath() + "/sessao/listaPorProjeto?idProjeto=" + idProjetoRedirect :
+                request.getContextPath() + "/sessoes/listaPorProjeto?idProjeto=" + idProjetoRedirect :
                 request.getContextPath() + "/usuario/";
         response.sendRedirect(redirectUrl);
     }

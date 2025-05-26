@@ -30,6 +30,11 @@
             </a>
         </li>
         <li>
+            <a href="${pageContext.request.contextPath}/sessoes/minhas-sessoes">
+                <fmt:message key="link.mysessions"/>
+            </a>
+        </li>
+        <li>
             <a href="${pageContext.request.contextPath}/logout.jsp">
                 <fmt:message key="link.login"/>
             </a>
