@@ -23,7 +23,7 @@
             <a href="${pageContext.request.contextPath}/usuario/lista">
                 <fmt:message key="link.user.list" />
             </a>
-        </li
+        </li>
         <li>
             <a href="${pageContext.request.contextPath}/admin/projetos/">
                 <fmt:message key="link.projects"/>
