@@ -63,7 +63,6 @@ public class ProjetoDAO extends GenericDAO {
                                 membros.add(membro);
                             }
                         } catch (NumberFormatException e) {
-                            // Ignorar ID inválido
                         }
                     }
                 }
@@ -108,7 +107,6 @@ public class ProjetoDAO extends GenericDAO {
                                 membros.add(membro);
                             }
                         } catch (NumberFormatException e) {
-                            // Ignorar ID inválido
                         }
                     }
                 }
