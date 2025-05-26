@@ -83,15 +83,13 @@
                     <td><fmt:message key="status.${sessao.status.name()}"/></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/sessoes/detalhes?idSessao=${sessao.id}"><fmt:message key="comum.link.detalhes"/></a>
-                        <c:if test="${sessionScope.usuarioLogado.id == sessao.tester.id || sessionScope.usuarioLogado.papel == 'admin'}">
-                            <hr>
-                            <a href="${pageContext.request.contextPath}/sessoes/edicao?idSessao=${sessao.id}"><fmt:message key="button.edit"/></a>
-                        </c:if>
-                        <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
-                            <hr>
-                            <a href="${pageContext.request.contextPath}/sessoes/remocao?idSessao=${sessao.id}"
-                               onclick="return confirm('<fmt:message key="sessao.confirmarRemocao"/>');"><fmt:message key="comum.botao.remover"/></a>
-                        </c:if>
+                        <hr>
+                        <a href="${pageContext.request.contextPath}/sessoes/edicao?idSessao=${sessao.id}"><fmt:message key="button.edit"/></a>
+                        <hr>
+                        <a href="${pageContext.request.contextPath}/sessoes/remocao?idSessao=${sessao.id}"
+                           onclick="return confirm('<fmt:message key="sessao.confirmarRemocao"/>');">
+                            <fmt:message key="comum.botao.remover"/>
+                        </a>
                     </td>
                 </tr>
             </c:forEach>

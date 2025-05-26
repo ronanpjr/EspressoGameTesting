@@ -82,7 +82,9 @@
             <th><fmt:message key="project.table.description" /></th>
             <th><fmt:message key="project.table.creation_date" /></th>
             <th><fmt:message key="project.table.members" /></th>
-            <th><fmt:message key="project.table.actions" /></th>
+            <c:if test="${sessionScope.usuarioLogado.papel == 'admin'}">
+                <th><fmt:message key="project.table.actions" /></th>
+            </c:if>
             <th><fmt:message key="sessao.tabela.acoesSessao" /></th>
         </tr>
         <fmt:message key="confirm.project.delete" var="confirmMsg" />
@@ -117,12 +119,16 @@
                 <td>
                     <a href="${pageContext.request.contextPath}/sessoes/lista-projeto?idProjeto=${projeto.id}">
                         <fmt:message key="projeto.link.verSessoes"/>
-                    </a><br/>
-                    <br>
-                    <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
-                        <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${projeto.id}">
-                            <fmt:message key="projeto.link.novaSessao"/>
-                        </a>
+                    </a>
+                    <c:if test="${sessionScope.usuarioLogado.papel == 'tester'}">
+                        <c:forEach var="membroDoProjeto" items="${projeto.membros}">
+                            <c:if test="${membroDoProjeto.id == sessionScope.usuarioLogado.id}">
+                                <hr>
+                                <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${projeto.id}">
+                                    <fmt:message key="projeto.link.novaSessao"/>
+                                </a>
+                            </c:if>
+                        </c:forEach>
                     </c:if>
                 </td>
             </tr>
