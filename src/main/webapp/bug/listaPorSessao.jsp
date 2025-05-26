@@ -119,7 +119,7 @@
                     <td>
                         <c:if test="${sessionScope.usuarioLogado.id == sessaoObj.idTester || sessionScope.usuarioLogado.papel == 'admin'}">
                             <a href="${pageContext.request.contextPath}/bugs/edicao?idBug=${bug.id}"><fmt:message key="button.edit"/></a>
-                            &nbsp;|&nbsp;
+                            <hr>
                             <a href="${pageContext.request.contextPath}/bugs/remocao?idBug=${bug.id}&idSessao=${sessaoObj.id}"
                                onclick="return confirm('<fmt:message key="bug.confirmarRemocao"/>');">
                                 <fmt:message key="comum.botao.remover"/>
