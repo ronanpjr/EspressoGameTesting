@@ -47,9 +47,6 @@
                         <c:forEach var="exemplo" items="${estrategia.exemplos}">
                             <li class="item-lista">
                                 <strong>Texto:</strong> <div style="white-space: pre-wrap; margin-top: 3px;"><c:out value="${exemplo.texto}"/></div>
-                                <c:if test="${exemplo.atributo1 != null}">
-                                    <br><strong>Atributo Numérico:</strong> <c:out value="${exemplo.atributo1}"/>
-                                </c:if>
                                 <c:if test="${not empty exemplo.urlImagem}">
                                     <br><strong>Imagem:</strong>
                                     <c:url var="imageUrl" value="/${applicationScope.uploadUrlPath}/${exemplo.urlImagem}" />

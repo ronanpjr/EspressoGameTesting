@@ -196,14 +196,6 @@ public class EstrategiaController extends HttpServlet {
                     Exemplo exemplo = new Exemplo();
                     exemplo.setTexto(texto);
 
-                    if (atributos1Exemplo != null && i < atributos1Exemplo.length && atributos1Exemplo[i] != null && !atributos1Exemplo[i].trim().isEmpty()) {
-                        try {
-                            exemplo.setAtributo1(Integer.parseInt(atributos1Exemplo[i].trim()));
-                        } catch (NumberFormatException e) {
-                            exemplo.setAtributo1(null);
-                        }
-                    }
-
                     String nomeArquivoParaSalvarNoBanco = null;
                     Part filePart = null;
 

@@ -13,58 +13,7 @@
     </c:choose>
     Estratégia
   </title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-    h1, h3 { color: #333; }
-    nav { margin-bottom: 20px; }
-    nav a { text-decoration: none; color: #007bff; margin-right: 15px; }
-    nav a:hover { text-decoration: underline; }
-    form div { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    input[type="text"], input[type="url"], textarea, input[type="number"], input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    textarea { min-height: 80px; resize: vertical; }
-    .campo-grupo {
-      border: 1px solid #e0e0e0;
-      padding: 15px; /* Reduzido padding */
-      margin-bottom: 15px; /* Reduzido margin */
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Sombra mais suave */
-    }
-    .campo-grupo h4 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom:12px; font-size: 1.1em;}
-    .mensagem { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
-    .erro { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
-    .sucesso { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
-    button, .btn {
-      padding: 10px 15px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-size: 1em;
-      margin-right: 10px;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-    button[type="submit"] { background-color: #28a745; color: white; }
-    button[type="submit"]:hover { background-color: #218838; }
-    .btn-remover { background-color: #dc3545; color: white; padding: 5px 10px; font-size: 0.9em;}
-    .btn-remover:hover { background-color: #c82333; }
-    .btn-adicionar { background-color: #007bff; color: white; margin-top: 10px; }
-    .btn-adicionar:hover { background-color: #0056b3; }
-    .btn-cancelar { background-color: #6c757d; color: white; }
-    .btn-cancelar:hover { background-color: #545b62; }
-    hr { border: 0; height: 1px; background: #ddd; margin: 25px 0; } /* Margem ajustada */
-    .imagem-atual-info { font-size: 0.85em; color: #555; margin-top: 5px; }
-    .imagem-atual-info img { max-width: 100px; max-height: 70px; border: 1px solid #eee; margin-right: 5px; vertical-align: middle; }
-  </style>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/layout.css">
 </head>
 <body>
 <h1>
@@ -122,10 +71,6 @@
                   (<c:out value="${exemplo.urlImagem}"/>)
                 </div>
               </c:if>
-            </div>
-            <div>
-              <label>Atributo Numérico (opcional):</label>
-              <input type="number" name="atributo1Exemplo[]" value="${exemplo.atributo1}" placeholder="Ex: 123">
             </div>
             <button type="button" class="btn-remover remover-item">Remover Este Exemplo</button>
           </div>
@@ -201,10 +146,6 @@
                 <label for="imagemExemplo_${novoIndex}">Imagem do Exemplo (opcional):</label>
                 <input type="file" id="imagemExemplo_${novoIndex}" name="imagemExemplo[]" accept="image/png, image/jpeg, image/gif">
                 <input type="hidden" name="urlImagemExemploAtual[]" value="">
-              </div>
-              <div>
-                <label>Atributo Numérico (opcional):</label>
-                <input type="number" name="atributo1Exemplo[]" placeholder="Ex: 123">
               </div>
               <button type="button" class="btn-remover remover-item">Remover Este Exemplo</button>
             </div>`;

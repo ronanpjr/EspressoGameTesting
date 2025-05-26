@@ -6,20 +6,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Estratégias - CRUD Simplificado</title>
-  <style>
-    body { font-family: sans-serif; margin: 20px; }
-    table { border-collapse: collapse; width: 100%; margin-bottom: 20px;}
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f0f0f0; }
-    .mensagem { padding: 10px; margin-bottom: 15px; border: 1px solid; }
-    .sucesso { background-color: #e6ffe6; border-color: #99ff99; color: #006600; }
-    .erro { background-color: #ffe6e6; border-color: #ff9999; color: #cc0000; }
-    nav a { margin-right: 10px; }
-  </style>
+  <title>Estratégias - CRUD</title>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lista_layout.css">
 </head>
 <body>
-<h1>Gerenciador de Estratégias (Simplificado)</h1>
+<h1>Gerenciador de Estratégias</h1>
 <nav>
   <a href="${pageContext.request.contextPath}/estrategia?acao=listar">Listar Todas</a> |
   <a href="${pageContext.request.contextPath}/estrategia?acao=novo">Nova Estratégia</a>
@@ -27,7 +18,6 @@
 <hr>
 
 <h2>Lista de Estratégias</h2>
-<p>teste115</p>
 
 <c:if test="${not empty param.sucesso}">
   <p class="mensagem sucesso">

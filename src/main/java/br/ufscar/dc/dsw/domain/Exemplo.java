@@ -4,16 +4,14 @@ public class Exemplo {
     private int id;
     private int idEstrategia;
     private String texto;
-    private Integer atributo1;
     private String urlImagem;
 
     public Exemplo() {}
 
-    public Exemplo(int id, int idEstrategia, String texto, Integer atributo1, String urlImagem ) {
+    public Exemplo(int id, int idEstrategia, String texto, String urlImagem ) {
         this.id = id;
         this.idEstrategia = idEstrategia;
         this.texto = texto;
-        this.atributo1 = atributo1;
         this.urlImagem = urlImagem;
 
     }
@@ -42,14 +40,6 @@ public class Exemplo {
         this.texto = texto;
     }
 
-    public Integer getAtributo1() {
-        return atributo1;
-    }
-
-    public void setAtributo1(Integer atributo1) {
-        this.atributo1 = atributo1;
-    }
-
     public String getUrlImagem() {
         return urlImagem;
     }
@@ -61,6 +51,6 @@ public class Exemplo {
     @Override
     public String toString() {
         return "Exemplo [id=" + id + ", idEstrategia=" + idEstrategia + ", texto=" + texto +
-                ", atributo1=" + atributo1 + ", urlImagem=" + urlImagem + "]";
+                ", urlImagem=" + urlImagem + "]";
     }
 }
