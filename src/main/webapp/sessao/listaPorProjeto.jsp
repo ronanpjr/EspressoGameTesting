@@ -92,6 +92,10 @@
                  onclick="return confirm('<fmt:message key="sessao.confirmarRemocao"/>');">
                 <fmt:message key="comum.botao.remover"/>
               </a>
+              <hr>
+              <a href="${pageContext.request.contextPath}/bugs/lista-sessao?idSessao=${sessao.id}">
+                <fmt:message key="sessao.tabela.verBugs"/>
+              </a>
             </c:if>
           </td>
         </tr>

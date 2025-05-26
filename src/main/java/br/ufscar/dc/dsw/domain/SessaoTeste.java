@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.domain;
 import br.ufscar.dc.dsw.util.StatusSessaoTeste;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessaoTeste {
@@ -17,6 +18,7 @@ public class SessaoTeste {
     private String descricao;
     private StatusSessaoTeste status;
     private List<HistoricoStatusSessaoTeste> historicoStatus;
+    private List<Bug> bugs;
 
     public SessaoTeste() {
     }
@@ -27,7 +29,7 @@ public class SessaoTeste {
         this.idEstrategia = idEstrategia;
         this.duracao = duracao;
         this.descricao = descricao;
-        this.status = StatusSessaoTeste.CREATED; // Default status using enum
+        this.status = StatusSessaoTeste.CREATED;
     }
 
     public SessaoTeste(Long id) {
@@ -122,5 +124,12 @@ public class SessaoTeste {
         this.historicoStatus = historicoStatus;
     }
 
+    public List<Bug> getBugs() {
+        return bugs;
+    }
+
+    public void setBugs(List<Bug> bugs) {
+        this.bugs = bugs;
+    }
 }
 

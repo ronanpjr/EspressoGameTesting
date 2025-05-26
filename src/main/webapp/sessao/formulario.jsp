@@ -167,7 +167,6 @@
     </table>
 </form>
 
-<%-- Links de Navegação (mantido como antes) --%>
 <p style="text-align: center; margin-top: 20px;">
     <c:choose>
         <c:when test="${isEditMode and not empty sessaoObj.id}">

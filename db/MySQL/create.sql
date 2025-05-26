@@ -230,4 +230,14 @@ INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data
 INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
 (6, 'created', 'in_execution', '2024-05-04 11:00:30');
 INSERT INTO HistoricoStatusSessao (id_sessao, status_anterior, status_novo, data_hora) VALUES
-(6, 'in_execution', 'finalized', '2024-05-04 11:05:29');
+(6, /home/fekenji/Documents/EspressoGameTesting'in_execution', 'finalized', '2024-05-04 11:05:29');
+
+CREATE TABLE Bug (
+             id_bug INT AUTO_INCREMENT PRIMARY KEY,
+             id_sessao INT NOT NULL,
+             descricao TEXT NOT NULL,
+             data DATETIME NOT NULL,
+             resolvido BOOLEAN NOT NULL DEFAULT FALSE,
+             FOREIGN KEY (id_sessao) REFERENCES Sessao(id_sessao) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
