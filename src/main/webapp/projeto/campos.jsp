@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<table border="1">
+
+<table border="1" style="margin: 20px auto; width: 500px;">
     <caption>
         <c:choose>
-            <c:when test="${projeto != null}">
+            <c:when test="${projeto != null && projeto.id != null}">
                 Edição
             </c:when>
             <c:otherwise>
@@ -14,7 +13,7 @@
             </c:otherwise>
         </c:choose>
     </caption>
-    <c:if test="${projeto != null}">
+    <c:if test="${projeto != null && projeto.id != null}">
         <input type="hidden" name="id" value="${projeto.id}" />
     </c:if>
     <tr>
@@ -26,13 +25,12 @@
         <td><textarea id="descricao" name="descricao" rows="4" cols="45">${projeto.descricao}</textarea></td>
     </tr>
     <tr>
-        <td><label for="membros">Membros Permitidos (e-mails separados por vírgula)</label></td>
+        <td><label for="membros">Membros Permitidos (logins separados por vírgula)</label></td>
         <c:set var="membrosLogin" value="" />
         <c:forEach var="m" items="${projeto.membros}" varStatus="status">
             <c:set var="membrosLogin" value="${membrosLogin}${m.login}${status.last ? '' : ', '}" />
         </c:forEach>
-        <input type="text" id="membros" name="membros" size="60" value="${membrosLogin}" />
-
+        <td><input type="text" id="membros" name="membros" size="60" value="${membrosLogin}" /></td>
     </tr>
     <tr>
         <td colspan="2" align="center"><input type="submit" value="Salvar" /></td>
