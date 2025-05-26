@@ -24,8 +24,13 @@ abstract public class GenericDAO {
 
         /* Conexão banco de dados MySQL */
 
+        String user = "root";
+        String password = "root";
         String url = "jdbc:mysql://localhost:3306/EspressoTestingDB";
 
-        return DriverManager.getConnection(url, "root", "root");
+        return DriverManager.getConnection(url, user, password);
     }
+
+
+
 }

@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="nav-container">
-    <h1><fmt:message key="welcome.title" /></h1>
+    <h1> <fmt:message key="welcome.title2"/> <c:out value="${sessionScope.usuarioLogado.nome}"/>! </h1>
     <h2><fmt:message key="welcome.subtitle" /></h2>
     <ul>
         <li>
@@ -25,10 +25,16 @@
             </a>
         </li>
         <li>
+            <a href="${pageContext.request.contextPath}/admin/projetos/">
+                <fmt:message key="link.projects"/>
+            </a>
+        </li>
+        <li>
             <a href="${pageContext.request.contextPath}/logout.jsp">
                 <fmt:message key="link.login"/>
             </a>
         </li>
+
         <!-- Adicione aqui outros módulos do sistema -->
     </ul>
 </div>

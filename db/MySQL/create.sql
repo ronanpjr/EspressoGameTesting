@@ -27,8 +27,10 @@ CREATE TABLE Projeto (
                          id_projeto INT AUTO_INCREMENT PRIMARY KEY,
                          nome VARCHAR(255) NOT NULL UNIQUE,
                          descricao TEXT,
-                         data_criacao DATE NOT NULL
+                         data_criacao DATE NOT NULL,
+                         membros TEXT NOT NULL
 ) ENGINE=InnoDB;
+
 
 CREATE TABLE MembroProjeto (
                                id_membro INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,6 +39,7 @@ CREATE TABLE MembroProjeto (
                                FOREIGN KEY (id_projeto) REFERENCES Projeto(id_projeto) ON DELETE CASCADE,
                                FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE,
                                UNIQUE KEY (id_projeto, id_usuario) -- Adicionado para evitar membros duplicados
+
 ) ENGINE=InnoDB;
 
 CREATE TABLE Estrategia (
@@ -44,6 +47,7 @@ CREATE TABLE Estrategia (
                             nome VARCHAR(255) NOT NULL UNIQUE,
                             descricao TEXT
 ) ENGINE=InnoDB;
+
 
 CREATE TABLE Exemplo (
                          id_exemplo INT AUTO_INCREMENT PRIMARY KEY,

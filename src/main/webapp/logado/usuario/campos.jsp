@@ -47,7 +47,6 @@
         <td>
             <select id="papel" name="papel">
                 <option value="admin" ${usuario.papel == 'admin' ? 'selected' : ''}>Administrador</option>
-                <option value="user" ${usuario.papel == 'user' ? 'selected' : ''}>Usuário</option>
                 <option value="tester" ${usuario.papel == 'tester' ? 'selected' : ''}>Testador</option>
             </select>
         </td>
