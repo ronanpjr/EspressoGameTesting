@@ -28,7 +28,7 @@ abstract public class GenericDAO {
         String password = "root";
         String url = "jdbc:mysql://localhost:3306/EspressoTestingDB";
 
-        return DriverManager.getConnection(url, user, password);
+        return DriverManager.getConnection(url, "root", "a");
     }
 
 

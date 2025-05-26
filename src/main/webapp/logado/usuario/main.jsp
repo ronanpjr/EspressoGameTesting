@@ -23,15 +23,15 @@
             <a href="${pageContext.request.contextPath}/usuario/lista">
                 <fmt:message key="link.user.list" />
             </a>
+        </li
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/projetos/">
+                <fmt:message key="link.projects"/>
+            </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/sessoes/minhas-sessoes">
                 <fmt:message key="link.mysessions"/>
-            </a>
-        </li>
-        <li>
-            <a href="${pageContext.request.contextPath}/admin/projetos/">
-                <fmt:message key="link.projects"/>
             </a>
         </li>
         <li>
