@@ -32,7 +32,7 @@ CREATE TABLE projetos (
 CREATE TABLE membros_projeto (
                                  id_membro       INT AUTO_INCREMENT PRIMARY KEY,
                                  id_projeto      INT NOT NULL,
-                                 id_usuario      INT NOT NULL,
+                                 id_usuario      BIGINT NOT NULL,
                                  FOREIGN KEY (id_projeto) REFERENCES projetos(id_projeto) ON DELETE CASCADE,
                                  FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -50,6 +50,7 @@ CREATE TABLE exemplos (
                           id_estrategia   INT         NOT NULL,
                           texto           TEXT        NOT NULL,
                           atributo1       INT,
+                          url_imagem VARCHAR(512) NULL,
                           FOREIGN KEY (id_estrategia) REFERENCES estrategias(id_estrategia) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -65,7 +66,7 @@ CREATE TABLE dicas_estrategia (
 CREATE TABLE sessoes (
                          id_sessao       INT AUTO_INCREMENT PRIMARY KEY,
                          id_projeto      INT     NOT NULL,
-                         id_tester       INT     NOT NULL,
+                         id_tester       BIGINT     NOT NULL,
                          id_estrategia   INT     NOT NULL,
                          duracao         TIME,
                          descricao       TEXT,
