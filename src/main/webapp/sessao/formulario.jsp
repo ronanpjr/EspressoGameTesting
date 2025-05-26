@@ -89,7 +89,7 @@
                 <%-- Se for modo de edição E a estratégia já estiver definida, mostra como texto e hidden --%>
                 <%-- Se for modo de criação OU a estratégia não estiver definida, mostra dropdown --%>
                 <c:choose>
-                    <c:when test="${isEditMode and not empty sessaoObj.idEstrategia}">
+                    <c:when test="${isEditMode and not empty sessaoObj.estrategia}">
                         <strong>
                             <c:out value="${sessaoObj.estrategia.nome}"/> (ID: <c:out value="${sessaoObj.idEstrategia}"/>)
                         </strong>
@@ -99,7 +99,7 @@
                     <c:otherwise>
                         <select name="idEstrategia" id="idEstrategia" required>
                             <option value=""><fmt:message key="comum.selecione" /></option>
-                            <c:forEach var="estrategia" items="${requestScope.listaEstrategias}">
+                            <c:forEach var="estrategia" items="${requestScope.estrategias}"> <%-- FIXED: Changed 'listaEstrategias' to 'estrategias' --%>
                                 <option value="${estrategia.id}"
                                     ${ (not empty requestScope.idEstrategiaParam and requestScope.idEstrategiaParam == estrategia.id) or
                                             (empty requestScope.idEstrategiaParam and not empty sessaoObj.idEstrategia and sessaoObj.idEstrategia == estrategia.id)
@@ -109,7 +109,7 @@
                                 </option>
                             </c:forEach>
                         </select>
-                        <c:if test="${empty requestScope.listaEstrategias}">
+                        <c:if test="${empty requestScope.estrategias}"> <%-- FIXED: Changed 'listaEstrategias' to 'estrategias' --%>
                             <span style="color: red;"><fmt:message key="sessao.formulario.estrategia.nenhumaDisponivel"/></span>
                         </c:if>
                     </c:otherwise>
@@ -177,7 +177,7 @@
             &nbsp;|&nbsp;
         </c:when>
     </c:choose>
-    <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=<c:out value='${not empty projetoObj.id ? projetoObj.id : sessaoObj.idProjeto}'/>">
+    <a href="${pageContext.request.contextPath}/sessoes/lista-projeto?idProjeto=<c:out value='${not empty projetoObj.id ? projetoObj.id : sessaoObj.idProjeto}'/>">
         <fmt:message key="comum.voltarListaSessoesProjeto" />
     </a>
     &nbsp;|&nbsp;
