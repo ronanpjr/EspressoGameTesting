@@ -115,7 +115,7 @@
                     </c:if>
                 </td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=${projeto.id}">
+                    <a href="${pageContext.request.contextPath}/sessoes/lista-projeto?idProjeto=${projeto.id}">
                         <fmt:message key="projeto.link.verSessoes"/>
                     </a><br/>
                     <br>
