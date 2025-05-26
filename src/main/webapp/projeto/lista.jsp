@@ -120,7 +120,7 @@
                     <a href="${pageContext.request.contextPath}/sessoes/lista-projeto?idProjeto=${projeto.id}">
                         <fmt:message key="projeto.link.verSessoes"/>
                     </a>
-                    <c:if test="${sessionScope.usuarioLogado.papel == 'tester'}">
+                    <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
                         <hr>
                         <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${projeto.id}">
                             <fmt:message key="projeto.link.novaSessao"/>
