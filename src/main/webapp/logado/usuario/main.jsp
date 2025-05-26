@@ -25,6 +25,11 @@
             </a>
         </li>
         <li>
+            <a href="${pageContext.request.contextPath}/sessoes/minhas-sessoes">
+                <fmt:message key="link.mysessions"/>
+            </a>
+        </li>
+        <li>
             <a href="${pageContext.request.contextPath}/admin/projetos/">
                 <fmt:message key="link.projects"/>
             </a>
