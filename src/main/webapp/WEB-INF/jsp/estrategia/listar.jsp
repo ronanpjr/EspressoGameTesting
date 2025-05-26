@@ -6,6 +6,11 @@
 <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'pt_BR'}" />
 <fmt:setBundle basename="i18n.messages" />
 
+<%
+  // Para compatibilidade, força que a variável esteja visível no EL
+  request.setAttribute("usuarioLogado", session.getAttribute("usuarioLogado"));
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +24,13 @@
 
 <nav>
   <a href="${pageContext.request.contextPath}/usuario/"><fmt:message key="link.main_menu"/></a> |
-  <a href="${pageContext.request.contextPath}/estrategia?acao=listar"><fmt:message key="link.listar_todas"/></a> |
-  <a href="${pageContext.request.contextPath}/estrategia?acao=novo"><fmt:message key="link.nova_estrategia"/></a>
+  <a href="${pageContext.request.contextPath}/estrategia?acao=listar"><fmt:message key="link.listar_todas"/></a>
+
+  <c:if test="${not empty usuarioLogado}">
+    | <a href="${pageContext.request.contextPath}/estrategia?acao=novo"><fmt:message key="link.nova_estrategia"/></a>
+  </c:if>
 </nav>
+
 <hr>
 
 <h2><fmt:message key="titulo.lista.estrategias"/></h2>
@@ -67,9 +76,18 @@
       <td><c:out value="${estrategia.nome}" /></td>
       <td><c:out value="${estrategia.descricao}" /></td>
       <td>
-        <a href="${pageContext.request.contextPath}/estrategia?acao=editar&id=${estrategia.id}"><fmt:message key="acao.editar"/></a> |
-        <a href="${pageContext.request.contextPath}/estrategia?acao=excluir&id=${estrategia.id}" onclick="return confirm('<fmt:message key="mensagem.confirmar_exclusao"/>');"><fmt:message key="acao.excluir"/></a> |
-        <a href="${pageContext.request.contextPath}/estrategia?acao=detalhes&id=${estrategia.id}"><fmt:message key="acao.detalhes"/></a>
+        <c:if test="${not empty usuarioLogado}">
+          <a href="${pageContext.request.contextPath}/estrategia?acao=editar&id=${estrategia.id}">
+            <fmt:message key="acao.editar"/>
+          </a> |
+          <a href="${pageContext.request.contextPath}/estrategia?acao=excluir&id=${estrategia.id}"
+             onclick="return confirm('<fmt:message key="mensagem.confirmar_exclusao"/>');">
+            <fmt:message key="acao.excluir"/>
+          </a> |
+        </c:if>
+        <a href="${pageContext.request.contextPath}/estrategia?acao=detalhes&id=${estrategia.id}">
+          <fmt:message key="acao.detalhes"/>
+        </a>
       </td>
     </tr>
   </c:forEach>
@@ -80,5 +98,6 @@
   </c:if>
   </tbody>
 </table>
+
 </body>
 </html>

@@ -63,7 +63,7 @@
       <tr>
         <th><fmt:message key="sessao.tabela.id"/></th>
         <th><fmt:message key="sessao.tabela.tester"/></th>
-          <%--        <th><fmt:message key="sessao.tabela.estrategia"/></th>--%>
+        <th><fmt:message key="sessao.tabela.estrategia"/></th>
         <th><fmt:message key="sessao.tabela.duracao"/></th>
         <th><fmt:message key="sessao.tabela.descricao"/></th>
         <th><fmt:message key="sessao.tabela.status"/></th>
@@ -75,10 +75,10 @@
         <tr>
           <td><c:out value="${sessao.id}"/></td>
           <td><c:out value="${sessao.tester.nome}"/></td>
-            <%--          <td>--%>
-            <%--            <c:out value="${sessao.idEstrategia}"/>--%>
-            <%--            <c:if test="${not empty sessao.estrategia.nome}"> (<c:out value="${sessao.estrategia.nome}"/>)</c:if>--%>
-            <%--          </td>--%>
+                      <td>
+                        <c:out value="${sessao.idEstrategia}"/>
+                        <c:if test="${not empty sessao.estrategia.nome}"> (<c:out value="${sessao.estrategia.nome}"/>)</c:if>
+                      </td>
           <td><c:out value="${sessao.duracao}"/></td>
           <td><c:out value="${sessao.descricao}"/></td>
           <td><fmt:message key="status.${sessao.status.name()}"/></td>
