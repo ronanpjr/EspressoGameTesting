@@ -56,6 +56,20 @@
             </td>
         </tr>
     </table>
+    <div class="actions-sessao" align="center">
+        <h3><fmt:message key="sessao.listagem.tituloParaEsteProjeto"/></h3>
+        <p>
+            <a href="${pageContext.request.contextPath}/sessoes/listaPorProjeto?idProjeto=${requestScope.projeto.id}">
+                <fmt:message key="projeto.link.verSessoes"/>
+            </a>
+            <c:if test="${sessionScope.usuarioLogado.papel == 'tester' || sessionScope.usuarioLogado.papel == 'admin'}">
+                &nbsp;|&nbsp;
+                <a href="${pageContext.request.contextPath}/sessoes/cadastro?idProjeto=${requestScope.projeto.id}">
+                    <fmt:message key="projeto.link.novaSessao"/>
+                </a>
+            </c:if>
+        </p>
+    </div>
 </div>
 
 </body>
