@@ -43,6 +43,7 @@
     </c:choose>
 </h1>
 
+<%-- Bloco de Exibição de Erros (mantido como antes) --%>
 <c:if test="${mensagens != null && mensagens.isExisteErros()}">
     <div id="erro">
         <ul>
@@ -81,15 +82,40 @@
             <td><strong><c:out value="${projetoObj.nome}" /></strong></td>
         </tr>
 
-        <%--        <c:if test="${isEditMode and not empty sessaoObj.idEstrategia}">--%>
-        <%--            <tr>--%>
-        <%--                <th><fmt:message key="sessao.tabela.estrategia"/>:</th>--%>
-        <%--                <td>ID <c:out value="${sessaoObj.idEstrategia}"/>--%>
-
-        <%--                    <c:if test="${not empty sessaoObj.estrategia.nome}"> (<c:out value="${sessaoObj.estrategia.nome}"/>)</c:if>--%>
-        <%--                </td>--%>
-        <%--            </tr>--%>
-        <%--        </c:if>--%>
+        <%-- NOVO: Campo de Seleção de Estratégia --%>
+        <tr>
+            <th><label for="idEstrategia"><fmt:message key="sessao.formulario.estrategia" />:</label></th>
+            <td>
+                <%-- Se for modo de edição E a estratégia já estiver definida, mostra como texto e hidden --%>
+                <%-- Se for modo de criação OU a estratégia não estiver definida, mostra dropdown --%>
+                <c:choose>
+                    <c:when test="${isEditMode and not empty sessaoObj.idEstrategia}">
+                        <strong>
+                            <c:out value="${sessaoObj.estrategia.nome}"/> (ID: <c:out value="${sessaoObj.idEstrategia}"/>)
+                        </strong>
+                        <input type="hidden" name="idEstrategia" value="<c:out value='${sessaoObj.idEstrategia}'/>" />
+                        <br/><small><fmt:message key="sessao.formulario.estrategia.avisoEditar"/></small>
+                    </c:when>
+                    <c:otherwise>
+                        <select name="idEstrategia" id="idEstrategia" required>
+                            <option value=""><fmt:message key="comum.selecione" /></option>
+                            <c:forEach var="estrategia" items="${requestScope.listaEstrategias}">
+                                <option value="${estrategia.id}"
+                                    ${ (not empty requestScope.idEstrategiaParam and requestScope.idEstrategiaParam == estrategia.id) or
+                                            (empty requestScope.idEstrategiaParam and not empty sessaoObj.idEstrategia and sessaoObj.idEstrategia == estrategia.id)
+                                            ? 'selected' : ''}
+                                >
+                                    <c:out value="${estrategia.nome}"/> (ID: <c:out value="${estrategia.id}"/>)
+                                </option>
+                            </c:forEach>
+                        </select>
+                        <c:if test="${empty requestScope.listaEstrategias}">
+                            <span style="color: red;"><fmt:message key="sessao.formulario.estrategia.nenhumaDisponivel"/></span>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </tr>
 
         <tr>
             <th><label for="duracao"><fmt:message key="sessao.formulario.duracao" /> (HH:mm ou HH:mm:ss):</label></th>
@@ -141,6 +167,7 @@
     </table>
 </form>
 
+<%-- Links de Navegação (mantido como antes) --%>
 <p style="text-align: center; margin-top: 20px;">
     <c:choose>
         <c:when test="${isEditMode and not empty sessaoObj.id}">

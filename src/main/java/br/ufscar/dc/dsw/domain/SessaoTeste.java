@@ -11,8 +11,8 @@ public class SessaoTeste {
     private Projeto projeto;
     private Long idTester;
     private Usuario tester;
-    private Long idEstrategia;
-    // private Estrategia estrategia;
+    private Integer idEstrategia;
+    private Estrategia estrategia;
     private Time duracao;
     private String descricao;
     private StatusSessaoTeste status;
@@ -21,7 +21,7 @@ public class SessaoTeste {
     public SessaoTeste() {
     }
 
-    public SessaoTeste(Long idProjeto, Long idTester, Long idEstrategia, Time duracao, String descricao) {
+    public SessaoTeste(Long idProjeto, Long idTester, Integer idEstrategia, Time duracao, String descricao) {
         this.idProjeto = idProjeto;
         this.idTester = idTester;
         this.idEstrategia = idEstrategia;
@@ -74,21 +74,21 @@ public class SessaoTeste {
         this.tester = tester;
     }
 
-    public Long getIdEstrategia() {
+    public Integer getIdEstrategia() {
         return idEstrategia;
     }
 
-    public void setIdEstrategia(Long idEstrategia) {
+    public void setIdEstrategia(Integer idEstrategia) {
         this.idEstrategia = idEstrategia;
     }
 
-//    public Estrategia getEstrategia() {
-//        return estrategia;
-//    }
-//
-//    public void setEstrategia(Estrategia estrategia) {
-//        this.estrategia = estrategia;
-//    }
+    public Estrategia getEstrategia() {
+        return estrategia;
+        }
+
+    public void setEstrategia(Estrategia estrategia) {
+        this.estrategia = estrategia;
+    }
 
     public Time getDuracao() {
         return duracao;
@@ -121,5 +121,6 @@ public class SessaoTeste {
     public void setHistoricoStatus(List<HistoricoStatusSessaoTeste> historicoStatus) {
         this.historicoStatus = historicoStatus;
     }
+
 }
 

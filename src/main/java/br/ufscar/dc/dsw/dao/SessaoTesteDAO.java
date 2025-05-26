@@ -73,7 +73,7 @@ public class SessaoTesteDAO extends GenericDAO {
         sessaoTeste.setId(rs.getLong("id_sessao"));
         sessaoTeste.setIdProjeto(rs.getLong("id_projeto"));
         sessaoTeste.setIdTester(rs.getLong("id_tester"));
-        sessaoTeste.setIdEstrategia(rs.getLong("id_estrategia"));
+        sessaoTeste.setIdEstrategia(rs.getInt("id_estrategia"));
         sessaoTeste.setDuracao(rs.getTime("duracao"));
         sessaoTeste.setDescricao(rs.getString("descricao"));
         sessaoTeste.setStatus(StatusSessaoTeste.fromString(rs.getString("status")));
@@ -83,9 +83,10 @@ public class SessaoTesteDAO extends GenericDAO {
         Usuario tester = new Usuario(sessaoTeste.getIdTester());
         tester.setNome(rs.getString("nome_tester"));
         sessaoTeste.setTester(tester);
-//        Estrategia estrategia = new Estrategia(sessao.getIdEstrategia());
-//        estrategia.setNome(rs.getString("nome_estrategia"));
-//        sessao.setEstrategia(estrategia);
+        Estrategia estrategia = new Estrategia();
+        estrategia.setId(sessaoTeste.getIdEstrategia());
+        estrategia.setNome(rs.getString("nome_estrategia"));
+        sessaoTeste.setEstrategia(estrategia);
         return sessaoTeste;
     }
 
@@ -96,7 +97,7 @@ public class SessaoTesteDAO extends GenericDAO {
                 "from Sessao s " +
                 "join Projeto p on s.id_projeto = p.id_projeto " +
                 "join Usuario u on s.id_tester = u.id_usuario " +
-                "join Estrategia e on s.id_estrategia = e.id_estrategia " +
+                "join estrategias e on s.id_estrategia = e.id_estrategia " +
                 "where s.id_sessao = ?";
         try (Connection conexao = this.getConnection();
              PreparedStatement statement = conexao.prepareStatement(sql)) {
@@ -119,7 +120,7 @@ public class SessaoTesteDAO extends GenericDAO {
                 "from Sessao s " +
                 "join Projeto p on s.id_projeto = p.id_projeto " +
                 "join Usuario u on s.id_tester = u.id_usuario " +
-                "join Estrategia e on s.id_estrategia = e.id_estrategia " +
+                "join estrategias e on s.id_estrategia = e.id_estrategia " +
                 "where s.id_projeto = ? order by s.id_sessao desc";
         try (Connection conexao = this.getConnection();
              PreparedStatement statement = conexao.prepareStatement(sql)) {
@@ -141,7 +142,7 @@ public class SessaoTesteDAO extends GenericDAO {
                 "from Sessao s " +
                 "join Projeto p on s.id_projeto = p.id_projeto " +
                 "join Usuario u on s.id_tester = u.id_usuario " +
-                "join Estrategia e on s.id_estrategia = e.id_estrategia " +
+                "join estrategias e on s.id_estrategia = e.id_estrategia " +
                 "where s.id_tester = ? order by s.id_sessao desc";
         try (Connection conexao = this.getConnection();
              PreparedStatement statement = conexao.prepareStatement(sql)) {

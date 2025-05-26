@@ -152,4 +152,28 @@ public class EstrategiaDAO extends GenericDAO {
             throw new RuntimeException("Erro ao excluir estratégia", e);
         }
     }
+
+    public List<Estrategia> getAll() {
+        List<Estrategia> estrategias = new ArrayList<>();
+        String sql = "SELECT id_estrategia, nome, descricao FROM estrategias ORDER BY nome";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Estrategia estrategia = new Estrategia();
+                estrategia.setId(rs.getInt("id_estrategia"));
+                estrategia.setNome(rs.getString("nome"));
+                estrategia.setDescricao(rs.getString("descricao"));
+                // Importante: Não carregamos Exemplos/Dicas aqui para otimizar.
+                // Eles são carregados apenas quando se busca por ID.
+                estrategias.add(estrategia);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todas as estratégias (getAll): " + e.getMessage());
+            throw new RuntimeException("Erro ao buscar todas as estratégias: " + e.getMessage(), e);
+        }
+        return estrategias;
+    }
 }

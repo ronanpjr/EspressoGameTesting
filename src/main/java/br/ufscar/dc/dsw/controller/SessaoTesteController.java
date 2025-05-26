@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.controller;
 
+import br.ufscar.dc.dsw.dao.EstrategiaDAO;
 import br.ufscar.dc.dsw.dao.ProjetoDAO;
 import br.ufscar.dc.dsw.dao.SessaoTesteDAO;
 import br.ufscar.dc.dsw.domain.*;
@@ -25,13 +26,13 @@ public class SessaoTesteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private SessaoTesteDAO sessaoTesteDAO;
     private ProjetoDAO projetoDAO;
-    // private EstrategiaDAO estrategiaDAO;
+    private EstrategiaDAO estrategiaDAO;
 
     @Override
     public void init() {
         sessaoTesteDAO = new SessaoTesteDAO();
         projetoDAO = new ProjetoDAO();
-        // estrategiaDAO = new EstrategiaDAO();
+        estrategiaDAO = new EstrategiaDAO();
     }
 
     @Override
@@ -152,8 +153,8 @@ public class SessaoTesteController extends HttpServlet {
                 dispatcher.forward(request, response);
                 return;
             }
-            // List<Estrategia> estrategias = estrategiaDAO.getAll();
-            // request.setAttribute("estrategias", estrategias);
+             List<Estrategia> estrategias = estrategiaDAO.getAll();
+             request.setAttribute("estrategias", estrategias);
 
             request.setAttribute("projeto", projeto);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/sessao/formulario.jsp");
@@ -273,8 +274,8 @@ public class SessaoTesteController extends HttpServlet {
                 if(sessaoParaAtualizar != null) {
                     sessaoComInputUsuario.setProjeto(sessaoParaAtualizar.getProjeto());
                     sessaoComInputUsuario.setIdProjeto(sessaoParaAtualizar.getIdProjeto());
-                    //  sessaoComInputUsuario.setIdEstrategia(sessaoParaAtualizar.getIdEstrategia());
-                    //   sessaoComInputUsuario.setEstrategia(sessaoParaAtualizar.getEstrategia());
+                    sessaoComInputUsuario.setIdEstrategia(sessaoParaAtualizar.getIdEstrategia());
+                    sessaoComInputUsuario.setEstrategia(sessaoParaAtualizar.getEstrategia());
                 } else if (idProjeto != null) {
                     Projeto p = projetoDAO.get(idProjeto);
                     sessaoComInputUsuario.setProjeto(p);
@@ -322,9 +323,9 @@ public class SessaoTesteController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Long idProjeto = null;
-        // Long idEstrategia = null;
+        Long idEstrategia = null;
         String idProjetoParam = request.getParameter("idProjeto");
-        // String idEstrategiaParam = request.getParameter("idEstrategia");
+        String idEstrategiaParam = request.getParameter("idEstrategia");
         String duracaoStr = request.getParameter("duracao");
         String descricao = request.getParameter("descricao");
 
@@ -339,15 +340,15 @@ public class SessaoTesteController extends HttpServlet {
                 }
             }
 
-//            if (idEstrategiaParam == null || idEstrategiaParam.isEmpty()) {
-//                erros.add("sessao.erro.idEstrategiaObrigatorio");
-//            } else {
-//                try {
-//                    idEstrategia = Long.parseLong(idEstrategiaParam);
-//                } catch (NumberFormatException e) {
-//                    erros.add("sessao.erro.idEstrategiaInvalido");
-//                }
-//            }
+            if (idEstrategiaParam == null || idEstrategiaParam.isEmpty()) {
+                erros.add("sessao.erro.idEstrategiaObrigatorio");
+            } else {
+                try {
+                    idEstrategia = Long.parseLong(idEstrategiaParam);
+                } catch (NumberFormatException e) {
+                    erros.add("sessao.erro.idEstrategiaInvalido");
+                }
+            }
 
             if (duracaoStr == null || duracaoStr.trim().isEmpty()) {
                 erros.add("sessao.erro.duracaoObrigatoria");
@@ -379,17 +380,17 @@ public class SessaoTesteController extends HttpServlet {
 
             if (erros.isExisteErros()) {
                 request.setAttribute("idProjetoParam", idProjetoParam);
-                // request.setAttribute("idEstrategiaParam", idEstrategiaParam);
+                request.setAttribute("idEstrategiaParam", idEstrategiaParam);
                 request.setAttribute("duracaoParam", duracaoStr);
                 request.setAttribute("descricaoParam", descricao);
-                // List<Estrategia> estrategias = estrategiaDAO.getAll();
-                // request.setAttribute("estrategias", estrategias);
+                List<Estrategia> estrategias = estrategiaDAO.getAll();
+                request.setAttribute("estrategias", estrategias);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/sessao/formulario.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
 
-            SessaoTeste sessao = new SessaoTeste(idProjeto, usuarioLogado.getId(), 1L, duracao, descricao);
+            SessaoTeste sessao = new SessaoTeste(idProjeto, usuarioLogado.getId(), 1, duracao, descricao);
             sessaoTesteDAO.insert(sessao);
             response.sendRedirect(request.getContextPath() + "/sessoes/detalhes?idSessao=" + sessao.getId());
 
@@ -397,12 +398,12 @@ public class SessaoTesteController extends HttpServlet {
             erros.add("sessao.erro.inesperadoInsercao");
             e.printStackTrace();
             request.setAttribute("idProjetoParam", idProjetoParam);
-            // request.setAttribute("idEstrategiaParam", idEstrategiaParam);
+            request.setAttribute("idEstrategiaParam", idEstrategiaParam);
             request.setAttribute("duracaoParam", duracaoStr);
             request.setAttribute("descricaoParam", descricao);
             if (idProjeto != null) request.setAttribute("projeto", projetoDAO.get(idProjeto));
-            // List<Estrategia> estrategias = estrategiaDAO.getAll();
-            // request.setAttribute("estrategias", estrategias);
+            List<Estrategia> estrategias = estrategiaDAO.getAll();
+            request.setAttribute("estrategias", estrategias);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/sessao/formulario.jsp");
             dispatcher.forward(request, response);
         }
