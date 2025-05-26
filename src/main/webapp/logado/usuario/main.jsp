@@ -34,7 +34,9 @@
                 <fmt:message key="link.mysessions"/>
             </a>
         </li>
-        <li><a href="${pageContext.request.contextPath}/estrategia">Estrategias</a></li>
+        <li><a href="${pageContext.request.contextPath}/estrategia">
+            <fmt:message key="link.strategy"/>
+        </a></li>
         <li>
             <a href="${pageContext.request.contextPath}/logout.jsp">
                 <fmt:message key="link.login"/>

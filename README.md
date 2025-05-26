@@ -36,6 +36,7 @@ Você pode usar o terminal do MySQL:
 - **2. Deploy no Apache Tomcat**
   Copie o arquivo .war para a pasta webapps do seu Tomcat.  
   Inicie o servidor com startup.bat (Windows) ou startup.sh (Linux/macOS).  
+- execute **mvn tomcat7:deploy**
   Acesse: http://localhost:8080/EspressoTesting
   
 

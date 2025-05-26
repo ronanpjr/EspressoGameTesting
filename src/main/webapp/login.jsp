@@ -65,5 +65,9 @@
         </tr>
     </table>
 </form>
+<a class="guest" href="${pageContext.request.contextPath}/estrategia">
+    <fmt:message key="common.guest"/>
+
+</a>
 </body>
 </html>
