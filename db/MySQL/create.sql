@@ -102,8 +102,6 @@ INSERT INTO estrategias (nome, descricao) VALUES
 INSERT INTO estrategias (nome, descricao) VALUES
 ('Noob Journey (XPloiT)', 'Testers ignore the game''s tips and requirements and explore alternative paths to reach objectives, exploring unused or less common paths and features. Developed by merging Antisocial tour, Back Alley tour, and Blockaded Taxicab tour.');
 INSERT INTO estrategias (nome, descricao) VALUES
-('Completionist (XPloiT)', 'Tester tries to collect every possible output from the game (achievements, items, rewards, scores, upgrades), following the longest path. Developed by merging Collectors Tour, Lonely Businessman Tour, and Completionist game concept.');
-INSERT INTO estrategias (nome, descricao) VALUES
 ('Stress Test (XPloiT)', 'Testers explore unexpected, invalid, or illegal inputs and actions, repeating them to identify potential issues. Developed by merging Antisocial Tour and OCD Tour.');
 INSERT INTO estrategias (nome, descricao) VALUES
 ('Speedrun (XPloiT)', 'Testers learn about paths and objectives, set new objectives, and attempt to reach them using the shortest available path, aiming to achieve goals quickly by ignoring requirements or attempting alternate paths. Developed by merging Speedrun concept, Garbage Collectors Tour, Taxicab Tour, Landmark Tour, Coach Potato Tour, and Blockaded Taxicab Tour.');
@@ -147,14 +145,6 @@ INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (1, 3);
 INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (2, 3);
 INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (3, 3);
 INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (3, 6);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (4, 3);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (4, 6);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (5, 3);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (5, 6);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (6, 3);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (6, 6);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (7, 3);
-INSERT INTO MembroProjeto (id_projeto, id_usuario) VALUES (7, 6);
 
 INSERT INTO dicas_estrategia (id_estrategia, dica) VALUES
 (1, 'Focus on general understanding: mechanics, controls, abilities, scoring, enemies.'),
@@ -182,9 +172,9 @@ INSERT INTO exemplos (id_estrategia, texto, url_imagem) VALUES
 (1, 'Main character (1) needs to reach objective (4). Tester focuses on proceeding directly to the objective without spending much time on items (3) or enemies (2) (blue arrow). May briefly stop to investigate features of particular interest (cyan arrow).', 'Reference to Figure 2, PDF: Towards a framework for exploratory testing in video games.pdf, Page 3'),
 (2, 'Tester focuses on reaching the objective by avoiding the expected path (blue arrow) and attempts alternative methods without meeting usual requirements (cyan arrow). Game tips and guides are disregarded.', 'Reference to Figure 3, PDF: Towards a framework for exploratory testing in video games.pdf, Page 3'),
 (3, 'Tester explores the longest path (blue arrow) to reach the objective, defeating every enemy (red circles) and collecting all items (pink circles). Considers exploring the map (cyan arrow) for secrets.', 'Reference to Figure 4, PDF: Towards a framework for exploratory testing in video games.pdf, Page 3'),
-(4, 'Game specifies objectives and controls. Tester should attempt other buttons, even if not obvious. If progression is by reaching helicopter, tester considers moving in opposite direction for alternative outcomes.', 'Reference to Figure 5, PDF: Towards a framework for exploratory testing in video games.pdf, Page 4'),
-(5, 'Tester considers faster paths to objective (blue arrow), exploring climbing platforms, shortcuts (cyan arrow), or exploiting bugs. Example: benefit from character spawn to avoid lower platform, or find faster path eliminating a jump (Figure 7).', 'Reference to Figures 6 & 7, PDF: Towards a framework for exploratory testing in video games.pdf, Page 4'),
-(1, 'Bug example: In windowed mode, enlarging "Achievements" pop-up blocked menu interactions.', NULL),
+(1, 'Game specifies objectives and controls. Tester should attempt other buttons, even if not obvious. If progression is by reaching helicopter, tester considers moving in opposite direction for alternative outcomes.', 'Reference to Figure 5, PDF: Towards a framework for exploratory testing in video games.pdf, Page 4'),
+(2, 'Tester considers faster paths to objective (blue arrow), exploring climbing platforms, shortcuts (cyan arrow), or exploiting bugs. Example: benefit from character spawn to avoid lower platform, or find faster path eliminating a jump (Figure 7).', 'Reference to Figures 6 & 7, PDF: Towards a framework for exploratory testing in video games.pdf, Page 4'),
+(3, 'Bug example: In windowed mode, enlarging "Achievements" pop-up blocked menu interactions.', NULL),
 (2, 'Example: Saving game during developer commentary restarted it for remaining time. Led to check NPC dialogues, finding: "Subtitles disappear when game saved/reloaded during dialogue," and "Voice echoes when game saved/reloaded during dialogue."', NULL),
 (3, 'Example: Game timer (top-right of Figs 2-7), if reaches "000", player loses. Question: "What happens if I enter helicopter just as timer reaches zero?" Tested for outcomes.', 'Reference to Figures 2-7, PDF: Towards a framework for exploratory testing in video games.pdf');
 
