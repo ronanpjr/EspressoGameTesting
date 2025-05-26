@@ -65,14 +65,14 @@ table caption {
     font-size: 1.5em;
     font-weight: bold;
     padding: 20px;
-    color: #6d4c41;
-    background-color: #d7ccc8;
-    border-bottom: 2px solid #bcaaa4;
+    color: #fff8e1;
+    background-color: #965015;
+    border-bottom: 2px solid #965015;
 }
 
 table th, table td {
     padding: 15px;
-    border-bottom: 1px solid #d7ccc8;
+    border-bottom: 1px solid #965015;
     text-align: left;
     font-size: 1em;
 }
@@ -144,4 +144,14 @@ ul.erro {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+td.nome{
+    min-width: 100px;
+}
+
+td.descricao {
+    max-width: 300px; /* or whatever fits your layout */
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
