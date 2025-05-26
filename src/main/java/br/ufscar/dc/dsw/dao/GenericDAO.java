@@ -20,16 +20,17 @@ abstract public class GenericDAO {
 
     protected Connection getConnection() throws SQLException {
 
-        /* Conexão banco de dados Derby */
 
-        /*
-         * String url = "jdbc:derby://localhost:1527/Livraria";
-         */
 
         /* Conexão banco de dados MySQL */
 
-        String url = "jdbc:mysql://localhost:3306/Livraria";
+        String user = "root";
+        String password = "root";
+        String url = "jdbc:mysql://localhost:3306/EspressoTestingDB";
 
-        return DriverManager.getConnection(url, "root", "root");
+        return DriverManager.getConnection(url, user, password);
     }
+
+
+
 }

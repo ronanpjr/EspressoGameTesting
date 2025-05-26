@@ -35,51 +35,91 @@ public class UsuarioController extends HttpServlet {
 
         // Check if user is authenticated
         if (usuarioLogado == null) {
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getContextPath() + "/index.jsp"); // Redireciona para o login
             return;
-        } 
+        }
 
-        // Check if user has permission
-        if (!(usuarioLogado.getPapel().equals("tester") || usuarioLogado.getPapel().equals("admin"))) {
-            erros.add("Acesso não autorizado!");
-            erros.add("Apenas Papel [tester] ou [admin] tem acesso a essa página");
+        String action = request.getPathInfo();
+        if (action == null) {
+            action = "";
+        }
+
+        if (!action.equals("") && !action.equals("/") && !(usuarioLogado.getPapel().equalsIgnoreCase("tester") || usuarioLogado.getPapel().equalsIgnoreCase("admin"))) {
+            erros.add("error.unauthorized.title");
+            erros.add("error.unauthorized.tester_admin");
             request.setAttribute("mensagens", erros);
             RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
             rd.forward(request, response);
             return;
         }
 
-        // User is authenticated and has permission, proceed with CRUD operations
-        String action = request.getPathInfo();
-        if (action == null) {
-            action = "";
-        }
-
         try {
             switch (action) {
                 case "/cadastro":
-                    apresentaFormCadastro(request, response);
+                    if (ehAdmin(usuarioLogado, erros)) {
+                        apresentaFormCadastro(request, response);
+                    } else {
+                        erroNaoAutorizado(request, response, erros);
+                    }
                     break;
                 case "/insercao":
-                    insere(request, response);
+                    if (ehAdmin(usuarioLogado, erros)) {
+                        insere(request, response);
+                    } else {
+                        erroNaoAutorizado(request, response, erros);
+                    }
                     break;
                 case "/remocao":
-                    remove(request, response);
+                    if (ehAdmin(usuarioLogado, erros)) {
+                        remove(request, response);
+                    } else {
+                        erroNaoAutorizado(request, response, erros);
+                    }
                     break;
                 case "/edicao":
-                    apresentaFormEdicao(request, response);
+                    if (ehAdmin(usuarioLogado, erros)) {
+                        apresentaFormEdicao(request, response);
+                    } else {
+                        erroNaoAutorizado(request, response, erros);
+                    }
                     break;
                 case "/atualizacao":
-                    atualize(request, response);
+                    if (ehAdmin(usuarioLogado, erros)) {
+                        atualize(request, response);
+                    } else {
+                        erroNaoAutorizado(request, response, erros);
+                    }
+                    break;
+                case "/lista":
+                    lista(request, response); // Lista pode ser vista por admin e tester
                     break;
                 default:
-                    lista(request, response);
-                    break;
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/usuario/main.jsp");
+                    dispatcher.forward(request, response);
+
             }
         } catch (RuntimeException | IOException | ServletException e) {
+            e.printStackTrace();
             throw new ServletException(e);
         }
     }
+
+    private boolean ehAdmin(Usuario usuarioLogado, Erro erros) {
+        if (usuarioLogado != null && usuarioLogado.getPapel().equalsIgnoreCase("admin")) {
+            return true;
+        } else {
+            erros.add("error.unauthorized.title"); // Usa chave
+            erros.add("error.unauthorized.admin_only"); // Usa chave específica para admin
+            return false;
+        }
+    }
+
+    private void erroNaoAutorizado(HttpServletRequest request, HttpServletResponse response, Erro erros) throws ServletException, IOException {
+        request.setAttribute("mensagens", erros);
+        RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+        rd.forward(request, response);
+    }
+
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Usuario> listaUsuarios = dao.getAll();
@@ -110,6 +150,9 @@ public class UsuarioController extends HttpServlet {
         String senha = request.getParameter("senha");
         String papel = request.getParameter("papel");
 
+        // Adicionar validação aqui e adicionar chaves de erro se necessário
+        // Ex: if (nome == null || nome.isEmpty()) erros.add("error.user.name.required");
+
         Usuario usuario = new Usuario(nome, login, senha, papel);
         dao.insert(usuario);
         response.sendRedirect("lista");
@@ -123,6 +166,7 @@ public class UsuarioController extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         String papel = request.getParameter("papel");
+
 
         Usuario usuario = new Usuario(id, nome, login, senha, papel);
         dao.update(usuario);
