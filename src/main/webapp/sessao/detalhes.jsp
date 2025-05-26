@@ -36,14 +36,13 @@
             <tr><th><fmt:message key="sessao.detalhes.id" />:</th><td><c:out value="${sessao.id}" /></td></tr>
             <tr><th><fmt:message key="sessao.detalhes.projeto" />:</th><td><c:out value="${sessao.projeto.nome}" /></td></tr>
             <tr><th><fmt:message key="sessao.detalhes.tester" />:</th><td><c:out value="${sessao.tester.nome}" /></td></tr>
-                <%--            <tr>--%>
-                <%--                <th><fmt:message key="sessao.detalhes.idEstrategia" />:</th>--%>
-                <%--                <td>--%>
-                <%--                    <c:out value="${sessao.idEstrategia}" />--%>
-                <%--                        &lt;%&ndash; Se você buscar o nome da estratégia no DAO, mesmo sem o objeto: &ndash;%&gt;--%>
-                <%--                    <c:if test="${not empty sessao.estrategia.nome}"> (<c:out value="${sessao.estrategia.nome}" />)</c:if>--%>
-                <%--                </td>--%>
-                <%--            </tr>--%>
+                            <tr>
+                                <th><fmt:message key="sessao.detalhes.idEstrategia" />:</th>
+                            <td>
+                                   <c:out value="${sessao.idEstrategia}" />
+                                    <c:if test="${not empty sessao.estrategia.nome}"> (<c:out value="${sessao.estrategia.nome}" />)</c:if>
+                                </td>
+                         </tr>
             <tr><th><fmt:message key="sessao.detalhes.duracao" />:</th><td><c:out value="${sessao.duracao}" /></td></tr>
             <tr><th><fmt:message key="sessao.detalhes.descricao" />:</th><td><pre><c:out value="${sessao.descricao}" /></pre></td></tr>
             <tr><th><fmt:message key="sessao.detalhes.statusAtual" />:</th><td><fmt:message key="status.${sessao.status.name()}"/></td></tr>
